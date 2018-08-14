@@ -1,12 +1,2 @@
-# SCAM
-## Reinventing HW design
+For instructions please read the manual in doc/
 
-Detailed analysis here ... how to how to 
-Detailed analysis here ... how to how to? 
-Detailed analysis here ... how to how to? 
-Detailed analysis here ... how to how to? 
-Detailed analysis here ... how to how to? 
-Detailed analysis here ... how to how to? 
-Detailed analysis here ... how to how to? 
-Detailed analysis here ... how to how to? 
-Detailed analysis here ... how to how to? 

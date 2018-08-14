@@ -1,0 +1,6 @@
+add_subdirectory(Bus)
+add_subdirectory(Framer)
+add_subdirectory(FPI)
+add_subdirectory(RISCV)
+add_subdirectory(RISCV_Test)
+add_subdirectory(Whishbone)
