@@ -1,7 +1,7 @@
 Installation {#sec:installation}
 ============
 
-Download the most current version of :
+Download the most current version of SCAM :
 
     git clone https://github.com/ludwig247/SCAM
     cd SCAM
@@ -22,13 +22,18 @@ paths to , cmake3 and python3 at the top of the file. Afterwards, run
 the shell script to compile and install . The binary will be located in
 the folder.
 
-\newpage
+Introduction {#sec:introduction}
+============
+A full documentation is found in doc/Manual. It includes a full explaintion of the desired designflow and in-depth explainations on the functionality of the tool. 
+In the following a quick overview is provided.
+
+
 Introduction {#sec:introduction}
 ============
 
 This manual describes *Property-Driven Design* (PDD), a new top-down
 hardware design methodology. It borrows ideas from so-called
-*Test-Driven Development* (TDD) [@2002-Beck], a software design paradigm
+*Test-Driven Development* (TDD), a software design paradigm
 aiming at writing high-quality code while maintaining high productivity.
 Before we delve into PDD, let us first review TDD and discuss some
 important aspects of it.
@@ -55,15 +60,13 @@ design. This approach allows for an incremental software design process
 and results in fewer design bugs, complete test coverage and a
 documentation of the code.
 
-![image](fig/drawing.pdf)
-
 **Property-Driven Design (PDD)** takes this idea to hardware design.
 Tests are replaced by formal properties. However, the designer doesn't
 need to write the tests. Instead, abstract properties are generated
 automatically from a high-level description. The PDD flow starts with a
 verified description of the component at the *Electronic System Level*
 (ESL). From this description the tests are generated automatically in
-form of interval [@2014-UrdahlStoffel.etal] properties (e.g., SVA,
+form of interval properties (e.g., SVA,
 ITL)by our tool (\"**S**ystem**C** **A**bstract **M**odel\"). When
 writing RTL code, the designer only needs to refine the properties by
 adding information about data types and clock cycle-accurate timing. The
@@ -73,9 +76,8 @@ the property. Once all properties hold on the design the hardware design
 process is finished.
 
 The design entry point of PDD is the ESL.
-Figure [\[fig:PDD-overview\]](#fig:PDD-overview){reference-type="ref"
-reference="fig:PDD-overview"} shows an overview of the desired flow
-which consists of three major steps. The first step is analyzing the ESL
+Te desired flow which consists of three major steps. 
+The first step is analyzing the ESL
 description with and refactoring it according to the provided feedback.
 The resulting model is now considered the golden reference for the
 subsequent steps. The second step is the generation of abstract
@@ -103,12 +105,4 @@ implementation is started.
 
 Section [\[sec:walk-through\]](#sec:walk-through){reference-type="ref"
 reference="sec:walk-through"} will provide a step-by-step-walk-through
-of PDD for a simple example, followed by a more detailed explanation of
-PDD in the subsequent sections. The *installation* of the software tool
-is explained in
-Section [\[sec:installation\]](#sec:installation){reference-type="ref"
-reference="sec:installation"}. All example files are available on our
-GitHub page [@web-scam].
-
-
-
+of PDD for a simple example.
