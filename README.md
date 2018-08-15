@@ -1,4 +1,15 @@
-Installation {#sec:installation}
+Overview
+============
+A full documentation is found in doc/Manual.pdf including
+-   a full explaintion of the desired designflow
+-   description of the used SystemC subset
+-   semantic understanding of the system-level
+-   ideas and concepts of the tool
+
+In the following a short introduction of the tool is provided.
+
+
+Installation
 ============
 
 Download the most current version of SCAM :
@@ -22,17 +33,8 @@ paths to , cmake3 and python3 at the top of the file. Afterwards, run
 the shell script to compile and install . The binary will be located in
 the folder.
 
-Introduction {#sec:introduction}
-============
-A full documentation is found in doc/Manual.pdf including
--   a full explaintion of the desired designflow
--   description of the used SystemC subset
--   semantic understanding of the system-level
--   ideas and concepts of the tool
 
-In the following a short introduction of the tool is provided.
-
-Introduction {#sec:introduction}
+Introduction 
 ============
 
 This manual describes *Property-Driven Design* (PDD), a new top-down
@@ -229,7 +231,7 @@ subset. The designer must now make a decision,
 -   or whether the statement can be safely ignored as it has no effect
     on the behavior (e.g., a ).
 
-Step 2: Property Generation {#sec:walk-through-step2}
+Step 2: Property Generation 
 ---------------------------
 
 Once the code is stable and deemed ready for RTL implementation, we can
@@ -300,8 +302,7 @@ points of communication between modules, and the transitions between
 states represent the computations inside the module, as specified by the
 properties.
 
-Listing [\[lst:walk-through\]](#lst:walk-through){reference-type="ref"
-reference="lst:walk-through"} contains three communication calls
+The provided example contains three communication calls
 (line 17, 19, 20). For each of these calls, a state is created. These
 states are called *important states*, because they represent important
 control points of the hardware.
