@@ -29,9 +29,8 @@ Make sure your environments provides the following tools:
 -   g++, version 4.8 or higher.
 
 Before installing , open and configure the shell script by providing the
-paths to , cmake3 and python3 at the top of the file. Afterwards, run
-the shell script to compile and install . The binary will be located in
-the folder.
+paths to , cmake3 and python3 at the top of the file. 
+Afterwards, run the shell script to compile and install . 
 
 
 Introduction 
