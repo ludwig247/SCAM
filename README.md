@@ -162,7 +162,7 @@ both sides are ready for communication.
 The behavior of the module is described within the method *fsm* that is
 registered as a thread with the SystemC scheduler and is executed
 infinitely often. The module reads a value from the input *b\_in* and
-stores the result in the variable *value*. If *value* is $>$*10* the
+stores the result in the variable *value*. If *value* is >*10* the
 output port sends *true*, otherwise *false*.
 
 As you might already suspect from examining the example, it is not possible to use arbitrary
@@ -346,17 +346,17 @@ line 17 and line 19 of
 Figure [\[lst:walk-through\]](#lst:walk-through){reference-type="ref"
 reference="lst:walk-through"}.
 
-If the input is available ($b\_in\_sync == true$) and the input value is
+If the input is available (b\_in\_sync == true) and the input value is
 greater or equal 11 the hardware moves to important state . In the value
 of is set to *true* and the counterpart is notified by raising . The
 property assumes that:
 
 -   The hardware is in state ,
 
--   a new input is available ($b\_in\_sync == true$),
+-   a new input is available (b\_in\_sync == true),
 
 -   and the value of the received message is greater or equal 11
-    ( $\geq$ 11).
+    ( >= 11).
 
 Then, it is proven that:
 
