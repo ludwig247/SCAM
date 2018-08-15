@@ -1,13 +1,14 @@
 Overview
 ============
-A full documentation is found in doc/Manual.pdf including
+A full documentation is found in
+[doc/Manual.pdf](https://github.com/ludwig247/SCAM/blob/master/doc/Manual.pdf) 
+including:
 -   a full explaintion of the desired designflow
 -   description of the used SystemC subset
 -   semantic understanding of the system-level
 -   ideas and concepts of the tool
 
 In the following a short introduction of the tool is provided.
-
 
 Installation
 ============
@@ -108,8 +109,7 @@ bug will appear in the RTL. As ESL and RTL are no longer decoupled, it
 is important that the ESL is thoroughly verified before PDD-based RTL
 implementation is started.
 
-Section [\[sec:walk-through\]](#sec:walk-through){reference-type="ref"
-reference="sec:walk-through"} will provide a step-by-step-walk-through
+Section Walk-Through will provide a step-by-step-walk-through
 of PDD for a simple example.
 
 
