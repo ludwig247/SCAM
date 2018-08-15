@@ -24,15 +24,13 @@ the folder.
 
 Introduction {#sec:introduction}
 ============
-A full documentation is found in doc/Manual.pdf. 
-It includes:
+A full documentation is found in doc/Manual.pdf including
 -   a full explaintion of the desired designflow
 -   description of the used SystemC subset
 -   semantic understanding of the system-level
 -   ideas and concepts of the tool
 
-In the following only quick overview is provided.
-
+In the following a short introduction of the tool is provided.
 
 Introduction {#sec:introduction}
 ============
