@@ -1,7 +1,9 @@
-Overview
+SCAM - Overview
 ============
 A full documentation is found in
+
 [doc/Manual.pdf](https://github.com/ludwig247/SCAM/blob/master/doc/Manual.pdf) 
+
 including:
 -   a full explaintion of the desired designflow
 -   description of the used SystemC subset
