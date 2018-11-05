@@ -33,7 +33,9 @@ Make sure your environments provides the following tools:
 
 Before installing , open and configure the shell script by providing the
 paths to , cmake3 and python3 at the top of the file. 
-Afterwards, run the shell script to compile and install . 
+Afterwards, run the shell script to compile and install. 
+Installation is tested with Ubuntu 16.04LTS and Ubuntu 12.04LTS. 
+
 
 
 Introduction 

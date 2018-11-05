@@ -17,7 +17,7 @@ constraint no_reset := rst = '0'; end constraint;
 
 -- FUNCTIONS --
 macro foo(record_var_x: int;record_var_y: unsigned) : unsigned := 
-	if ((signed(y) < resize(20,32))) then unsigned(unsigned((shift_right(signed(y),signed((y and resize(31,32)))))))
+	if ((signed(record_var_y) < resize(20,32))) then unsigned(unsigned((shift_right(signed(record_var_y),signed((y and resize(31,32)))))))
 	else unsigned(resize(0,32))
 end if;
 end macro; 

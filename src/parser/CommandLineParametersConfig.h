@@ -9,9 +9,9 @@
 #include <fstream>
 #include <sstream>
 
-#define PLUGIN_NAMES "PrintITL;PrintAML;PrintVHDL;PrintSkeleton;PrintDotSimple;PrintDotFull;PrintDotStates;PrintSystemC;PrintModulesCheckers;PrintSVA;PrintXML"
-#define PLUGIN_DESCRIPTIONS "Complete set of properties in ITL;Structure and FSM in AML;Print VHDL template;Print VHDL sceleton;statemachine + conditions as .dot;statemachine + conditions + commitments as .dot;statemachine as .dot;Regenerate model in SystemC;Create a project to check equivalency between generate module and original one;Complete set of properties in SVA;Dumps the structure of each module as XML"
-#define PLUGIN_DIRECTORIES "PrintITL;PrintAML;PrintVHDL;PrintSkeleton;PrintDot;PrintDot;PrintDot;PrintSystemC;PrintSystemC;PrintSVA;PrintXML"
+#define PLUGIN_NAMES "PrintITL;PrintAML;PrintSkeleton;PrintDotSimple;PrintDotFull;PrintDotStates;PrintSystemC;PrintSVA;PrintXML"
+#define PLUGIN_DESCRIPTIONS "Complete set of properties in ITL;Structure and FSM in AML;Print VHDL sceleton;statemachine + conditions as .dot;statemachine + conditions + commitments as .dot;statemachine as .dot;Regenerate model in SystemC;Complete set of properties in SVA;Dumps the structure of each module as XML"
+#define PLUGIN_DIRECTORIES "PrintITL;PrintAML;PrintSkeleton;PrintDot;PrintDot;PrintDot;PrintSystemC;PrintSVA;PrintXML"
 #define OPTION_NAMES "PrintITL;pipelined"
 #define OPTION_DESCRIPTIONS "PrintITL;Extends the properties in order to deal with pipelining more easily"
 

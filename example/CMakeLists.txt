@@ -1,18 +1,12 @@
-add_subdirectory(WB_bus)
 add_subdirectory(Bus)
 add_subdirectory(Framer)
-add_subdirectory(SingleMasterMultiSlave)
-add_subdirectory(rendezVouz)
-add_subdirectory(FPI)
 add_subdirectory(RISCV_OLD)
-add_subdirectory(tests)
+add_subdirectory(RISCV_ISA)
+add_subdirectory(RISCV_MS)
 add_subdirectory(RISCV_Pipelined)
-add_subdirectory(RISCV_synthesis)
 add_subdirectory(RISCV_Test)
 add_subdirectory(Whishbone)
-add_subdirectory(RISCV_interrupts)
-add_subdirectory(RISCV_UVMSYSTEMC)
-#add_subdirectory(RISCV_interrupts/UVMSYSTEMC)
-#add_subdirectory(I2C)
+
+
 
 
