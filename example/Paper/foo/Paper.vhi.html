@@ -1,0 +1,1380 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+ <html>
+  <head>
+<!-- TAG:file /import/home/ludwig/SCAM/example/Paper/Paper.vhi -->
+    <title>Quantify MDV File Result</title>
+    <link rel="stylesheet" href="styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="styles.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="jquery/jquery-ui-1.8.14.custom.css" type="text/css" media="all" />
+    <script type="text/javascript" src="jquery/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="quantify-control.js"></script>
+    <script type="text/javascript" src="results.js"></script>
+    <script type="text/javascript" src="quantify-results.js"></script>
+  </head>
+  <body>
+      <div id="control-panel-button">
+        <button id="show_control_panel">show control panel</button>
+      </div>
+      <div id="control-panel" class="ui-widget-header ui-corner-all">
+        <button id="hide_control_panel">hide control panel</button>
+        <button id="home">home</button>
+        <span id="button_set_ctrl">
+          <button id="goto_first">first</button>
+          <button id="goto_prev">previous</button>
+          <button id="goto_next">next</button>
+          <button id="goto_last">last</button>
+        </span>
+        <span id="button_set_st_br">
+          <input type="checkbox" id="sel_st" checked="1" /> <label id="sel_st_label" for="sel_st" title="Statements">St</label>
+          <input type="checkbox" id="sel_br" />             <label id="sel_br_label" for="sel_br" title="Branches"  >Br</label>
+        </span>
+        <span id="button_set_1U0X">
+          <input type="checkbox" id="st_1" /> <label id="st_1_label" for="st_1"   title="covered"     >1</label>
+          <input type="checkbox" id="st_R" /> <label id="st_R_label" for="st_R"   title="reached"   >R</label>
+          <input type="checkbox" id="st_U" /> <label id="st_U_label" for="st_U"   title="unknown"        >U</label>
+          <input type="checkbox" id="st_0R" /> <label id="st_0R_label" for="st_0R" title="unobserved"  >0R</label>
+          <input type="checkbox" id="st_0" /> <label id="st_0_label" for="st_0"   title="uncovered"   >0</label>
+          <input type="checkbox" id="st_0c"/> <label id="st_0c_label" for="st_0c" title="contrained"  >0C</label>
+          <input type="checkbox" id="st_0d"/> <label id="st_0d_label" for="st_0d" title="dead"        >0D</label>
+          <input type="checkbox" id="st_Xu"/> <label id="st_Xu_label" for="st_Xu" title="excluded"    >Xu</label>
+          <input type="checkbox" id="st_Xr"/> <label id="st_Xr_label" for="st_Xr" title="redundant"   >Xr</label>
+          <input type="checkbox" id="st_Xv"/> <label id="st_Xv_label" for="st_Xv" title="verification">Xv</label>
+        </span>
+      </div>
+      <div class="hidden" id="summary_covered_statement"      >0</div>
+      <div class="hidden" id="summary_reached_statement"      >0</div>
+      <div class="hidden" id="summary_unknown_statement"      >0</div>
+      <div class="hidden" id="summary_unobserved_statement"      >0</div>
+      <div class="hidden" id="summary_discovered_statement"   >0</div>
+      <div class="hidden" id="summary_constrained_statement"  >0</div>
+      <div class="hidden" id="summary_dead_statement"         >0</div>
+      <div class="hidden" id="summary_excluded_statement"     >0</div>
+      <div class="hidden" id="summary_redundant_statement"    >0</div>
+      <div class="hidden" id="summary_verification_statement" >0</div>
+      <div class="hidden" id="summary_covered_branch"      >0</div>
+      <div class="hidden" id="summary_reached_branch"    >0</div>
+      <div class="hidden" id="summary_unknown_branch"      >0</div>
+      <div class="hidden" id="summary_unobserved_branch"   >0</div>
+      <div class="hidden" id="summary_discovered_branch"   >0</div>
+      <div class="hidden" id="summary_constrained_branch"  >0</div>
+      <div class="hidden" id="summary_dead_branch"         >0</div>
+      <div class="hidden" id="summary_excluded_branch"     >0</div>
+      <div class="hidden" id="summary_redundant_branch"    >0</div>
+      <div class="hidden" id="summary_verification_branch" >0</div>
+   <div align="left">
+	  <div id="container">
+	    <div align="center"><img src="images/wave.png" /></div>
+	    <div id="header_title">
+	       Quantify MDV File Result
+	    </div>
+	  </div>
+        <noscript><div class="noscript">JavaScript must be enabled in order to use all features of this site.</div></noscript>
+        <div id=main>
+    <table cellspacing="0" cellpadding="0">
+     <tr>
+	    <td><a href="index.html">Overview</a></td>
+	    <td><a href="index.html#Summary">Structural Coverage Overview</a></td>
+	    <td><a href="index.html#Coverage">Structural Coverage by File</a></td>
+	    <td><a href="index.html#Properties">Assertion Coverage</a></td>
+	    <td><a href="index.html#Files">File Status</a></td>
+	    <td><a href="index.html#Info">Additional Information</a></td>
+     </tr>
+    </table>
+  <br/>
+  <table class="header" width="998" cellspacing="0" cellpadding="0">
+   <tr>
+	  <td class="header"><a name="Source"></a><b>Annotated Source for Paper.vhi</b></td>
+   </tr>
+   <tr>
+              <table id="source_code_table" class="content" width="998" cellspacing="1" cellpadding="0">
+      <tr>
+        <td class="line_no">1</td>
+        <td id="source_line_1" title="" class="code none"><a name="1"></a>-- SYNC AND NOTIFY SIGNALS (1-cycle macros) --</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">2</td>
+        <td id="source_line_2" title="" class="code none"><a name="2"></a>--macro b_in_notify :  boolean  := end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">3</td>
+        <td id="source_line_3" title="" class="code none"><a name="3"></a>--macro b_in_sync   :  boolean  := end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">4</td>
+        <td id="source_line_4" title="" class="code none"><a name="4"></a>--macro m_out_notify :  boolean  := end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">5</td>
+        <td id="source_line_5" title="" class="code none"><a name="5"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">6</td>
+        <td id="source_line_6" title="" class="code none"><a name="6"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">7</td>
+        <td id="source_line_7" title="" class="code none"><a name="7"></a>-- DP SIGNALS --</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">8</td>
+        <td id="source_line_8" title="" class="code none"><a name="8"></a>macro b_in_sig_data : signed := </td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">9</td>
+        <td id="source_line_9" title="" class="code none"><a name="9"></a>(data_in) &amp; next(data_in,1) &amp; next(data_in,2) &amp; next(data_in,3)</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">10</td>
+        <td id="source_line_10" title="" class="code none"><a name="10"></a>&amp; next(data_in,4) &amp; next(data_in,5) &amp; next(data_in,6) &amp; next(data_in,7)</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">11</td>
+        <td id="source_line_11" title="" class="code none"><a name="11"></a>&amp; next(data_in,8) &amp; next(data_in,9) &amp; next(data_in,10) &amp; next(data_in,11)</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">12</td>
+        <td id="source_line_12" title="" class="code none"><a name="12"></a>&amp; next(data_in,12) &amp; next(data_in,13) &amp; next(data_in,14) &amp; next(data_in,15)</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">13</td>
+        <td id="source_line_13" title="" class="code none"><a name="13"></a>&amp; next(data_in,16) &amp; next(data_in,17) &amp; next(data_in,18) &amp; next(data_in,19)</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">14</td>
+        <td id="source_line_14" title="" class="code none"><a name="14"></a>&amp; next(data_in,20) &amp; next(data_in,21) &amp; next(data_in,22) &amp; next(data_in,23)</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">15</td>
+        <td id="source_line_15" title="" class="code none"><a name="15"></a>&amp; next(data_in,24)&amp; next(data_in,25)&amp; next(data_in,26)&amp; next(data_in,27)</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">16</td>
+        <td id="source_line_16" title="" class="code none"><a name="16"></a>&amp; next(data_in,28)&amp; next(data_in,29)&amp; next(data_in,30) &amp;  next(data_in,31)</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">17</td>
+        <td id="source_line_17" title="" class="code none"><a name="17"></a>end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">18</td>
+        <td id="source_line_18" title="" class="code none"><a name="18"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">19</td>
+        <td id="source_line_19" title="" class="code none"><a name="19"></a>macro b_in_sig_status : status_t := </td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">20</td>
+        <td id="source_line_20" title="" class="code none"><a name="20"></a>	if (is_parity) then</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">21</td>
+        <td id="source_line_21" title="" class="code none"><a name="21"></a>		in_frame;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">22</td>
+        <td id="source_line_22" title="" class="code none"><a name="22"></a>	else</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">23</td>
+        <td id="source_line_23" title="" class="code none"><a name="23"></a>		oof_frame;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">24</td>
+        <td id="source_line_24" title="" class="code none"><a name="24"></a>	end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">25</td>
+        <td id="source_line_25" title="" class="code none"><a name="25"></a>end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">26</td>
+        <td id="source_line_26" title="" class="code none"><a name="26"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">27</td>
+        <td id="source_line_27" title="" class="code none"><a name="27"></a>macro m_out_sig : int := m_out end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">28</td>
+        <td id="source_line_28" title="" class="code none"><a name="28"></a>macro s_out_sig : bool := s_out end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">29</td>
+        <td id="source_line_29" title="" class="code none"><a name="29"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">30</td>
+        <td id="source_line_30" title="" class="code none"><a name="30"></a>--CONSTRAINTS--</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">31</td>
+        <td id="source_line_31" title="" class="code none"><a name="31"></a>constraint no_reset := rst = '0'; end constraint;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">32</td>
+        <td id="source_line_32" title="" class="code none"><a name="32"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">33</td>
+        <td id="source_line_33" title="" class="code none"><a name="33"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">34</td>
+        <td id="source_line_34" title="" class="code none"><a name="34"></a>-- VISIBLE REGISTERS --</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">35</td>
+        <td id="source_line_35" title="" class="code none"><a name="35"></a>macro cnt : int := cnt_signal end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">36</td>
+        <td id="source_line_36" title="" class="code none"><a name="36"></a>macro msg_data : int := msg_signal.data end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">37</td>
+        <td id="source_line_37" title="" class="code none"><a name="37"></a>macro msg_status : status_t := msg_signal.status end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">38</td>
+        <td id="source_line_38" title="" class="code none"><a name="38"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">39</td>
+        <td id="source_line_39" title="" class="code none"><a name="39"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">40</td>
+        <td id="source_line_40" title="" class="code none"><a name="40"></a>-- STATES --</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">41</td>
+        <td id="source_line_41" title="" class="code none"><a name="41"></a>macro frame_data_0 : boolean := section=frame_data and buffer_cnt = 0 end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">42</td>
+        <td id="source_line_42" title="" class="code none"><a name="42"></a>macro frame_start_2 : boolean := section=frame_start end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">43</td>
+        <td id="source_line_43" title="" class="code none"><a name="43"></a>macro idle_3 : boolean := section=idle  and buffer_cnt = 0 end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">44</td>
+        <td id="source_line_44" title="" class="code none"><a name="44"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">45</td>
+        <td id="source_line_45" title="" class="code none"><a name="45"></a>--HELPER</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">46</td>
+        <td id="source_line_46" title="" class="code none"><a name="46"></a>macro is_parity: bool := </td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">47</td>
+        <td id="source_line_47" title="" class="code none"><a name="47"></a>	if(prev(rst) or prev(rst,2) or prev(rst,3)) then </td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">48</td>
+        <td id="source_line_48" title="" class="code none"><a name="48"></a>		true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">49</td>
+        <td id="source_line_49" title="" class="code none"><a name="49"></a>	elsif(prev(rst,4)) then</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">50</td>
+        <td id="source_line_50" title="" class="code none"><a name="50"></a>		unsigned(1 &amp; prev(data_in,3) &amp; prev(data_in,2) &amp; prev(data_in,1)) &gt;= 4</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">51</td>
+        <td id="source_line_51" title="" class="code none"><a name="51"></a>	else </td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">52</td>
+        <td id="source_line_52" title="" class="code none"><a name="52"></a>		unsigned(prev(data_in,4) &amp; prev(data_in,3) &amp; prev(data_in,2) &amp; prev(data_in,1))  &gt;= 4;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">53</td>
+        <td id="source_line_53" title="" class="code none"><a name="53"></a>	end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">54</td>
+        <td id="source_line_54" title="" class="code none"><a name="54"></a>end macro;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">55</td>
+        <td id="source_line_55" title="" class="code none"><a name="55"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">56</td>
+        <td id="source_line_56" title="" class="code none"><a name="56"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">57</td>
+        <td id="source_line_57" title="" class="code none"><a name="57"></a>--Operations --</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">58</td>
+        <td id="source_line_58" title="" class="code none"><a name="58"></a>property reset is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">59</td>
+        <td id="source_line_59" title="" class="code none"><a name="59"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">60</td>
+        <td id="source_line_60" title="" class="code none"><a name="60"></a>	 reset_sequence;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">61</td>
+        <td id="source_line_61" title="" class="code none"><a name="61"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">62</td>
+        <td id="source_line_62" title="" class="code none"><a name="62"></a>	 at t: idle_3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">63</td>
+        <td id="source_line_63" title="" class="code none"><a name="63"></a>	 at t: cnt = 0;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">64</td>
+        <td id="source_line_64" title="" class="code none"><a name="64"></a>	 at t: msg_data = 0;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">65</td>
+        <td id="source_line_65" title="" class="code none"><a name="65"></a>	 at t: msg_status = in_frame;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">66</td>
+        <td id="source_line_66" title="" class="code none"><a name="66"></a>	 at t: s_out_sig = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">67</td>
+        <td id="source_line_67" title="" class="code none"><a name="67"></a>	 at t: b_in_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">68</td>
+        <td id="source_line_68" title="" class="code none"><a name="68"></a>	 at t: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">69</td>
+        <td id="source_line_69" title="" class="code none"><a name="69"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">70</td>
+        <td id="source_line_70" title="" class="code none"><a name="70"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">71</td>
+        <td id="source_line_71" title="" class="code none"><a name="71"></a>property frame_data_0_read_0 is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">72</td>
+        <td id="source_line_72" title="" class="code none"><a name="72"></a>dependencies: no_reset;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">73</td>
+        <td id="source_line_73" title="" class="code none"><a name="73"></a>for timepoints:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">74</td>
+        <td id="source_line_74" title="" class="code none"><a name="74"></a>	 t_end = t+32;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">75</td>
+        <td id="source_line_75" title="" class="code none"><a name="75"></a>freeze:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">76</td>
+        <td id="source_line_76" title="" class="code none"><a name="76"></a>	b_in_sig_data_at_t = b_in_sig_data@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">77</td>
+        <td id="source_line_77" title="" class="code none"><a name="77"></a>	b_in_sig_status_at_t = b_in_sig_status@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">78</td>
+        <td id="source_line_78" title="" class="code none"><a name="78"></a>	cnt_at_t = cnt@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">79</td>
+        <td id="source_line_79" title="" class="code none"><a name="79"></a>	s_out_sig_at_t = s_out_sig@t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">80</td>
+        <td id="source_line_80" title="" class="code none"><a name="80"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">81</td>
+        <td id="source_line_81" title="" class="code none"><a name="81"></a>	 at t: frame_data_0;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">82</td>
+        <td id="source_line_82" title="" class="code none"><a name="82"></a>	 at t: b_in_sync;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">83</td>
+        <td id="source_line_83" title="" class="code none"><a name="83"></a>	 at t: b_in_sync;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">84</td>
+        <td id="source_line_84" title="" class="code none"><a name="84"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">85</td>
+        <td id="source_line_85" title="" class="code none"><a name="85"></a>	 at t_end: frame_data_0;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">86</td>
+        <td id="source_line_86" title="" class="code none"><a name="86"></a>	 at t_end: cnt = cnt_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">87</td>
+        <td id="source_line_87" title="" class="code none"><a name="87"></a>	 at t_end: msg_data = b_in_sig_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">88</td>
+        <td id="source_line_88" title="" class="code none"><a name="88"></a>	 at t_end: msg_status = b_in_sig_status_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">89</td>
+        <td id="source_line_89" title="" class="code none"><a name="89"></a>	 at t_end: s_out_sig = s_out_sig_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">90</td>
+        <td id="source_line_90" title="" class="code none"><a name="90"></a>	 during[t+1, t_end-1]: b_in_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">91</td>
+        <td id="source_line_91" title="" class="code none"><a name="91"></a>	 at t_end: b_in_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">92</td>
+        <td id="source_line_92" title="" class="code none"><a name="92"></a>	 during[t+1, t_end]: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">93</td>
+        <td id="source_line_93" title="" class="code none"><a name="93"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">94</td>
+        <td id="source_line_94" title="" class="code none"><a name="94"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">95</td>
+        <td id="source_line_95" title="" class="code none"><a name="95"></a>property frame_data_0_read_1 is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">96</td>
+        <td id="source_line_96" title="" class="code none"><a name="96"></a>dependencies: no_reset;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">97</td>
+        <td id="source_line_97" title="" class="code none"><a name="97"></a>for timepoints:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">98</td>
+        <td id="source_line_98" title="" class="code none"><a name="98"></a>	 t_end = t+1;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">99</td>
+        <td id="source_line_99" title="" class="code none"><a name="99"></a>freeze:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">100</td>
+        <td id="source_line_100" title="" class="code none"><a name="100"></a>	cnt_at_t = cnt@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">101</td>
+        <td id="source_line_101" title="" class="code none"><a name="101"></a>	msg_data_at_t = msg_data@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">102</td>
+        <td id="source_line_102" title="" class="code none"><a name="102"></a>	msg_status_at_t = msg_status@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">103</td>
+        <td id="source_line_103" title="" class="code none"><a name="103"></a>	s_out_sig_at_t = s_out_sig@t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">104</td>
+        <td id="source_line_104" title="" class="code none"><a name="104"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">105</td>
+        <td id="source_line_105" title="" class="code none"><a name="105"></a>	 at t: frame_data_0;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">106</td>
+        <td id="source_line_106" title="" class="code none"><a name="106"></a>	 at t: not((cnt = 0));</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">107</td>
+        <td id="source_line_107" title="" class="code none"><a name="107"></a>	 at t: not(b_in_sync);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">108</td>
+        <td id="source_line_108" title="" class="code none"><a name="108"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">109</td>
+        <td id="source_line_109" title="" class="code none"><a name="109"></a>	 at t_end: frame_data_0;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">110</td>
+        <td id="source_line_110" title="" class="code none"><a name="110"></a>	 at t_end: cnt = (-1 + cnt_at_t);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">111</td>
+        <td id="source_line_111" title="" class="code none"><a name="111"></a>	 at t_end: m_out_sig = msg_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">112</td>
+        <td id="source_line_112" title="" class="code none"><a name="112"></a>	 at t_end: msg_data = msg_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">113</td>
+        <td id="source_line_113" title="" class="code none"><a name="113"></a>	 at t_end: msg_status = msg_status_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">114</td>
+        <td id="source_line_114" title="" class="code none"><a name="114"></a>	 at t_end: s_out_sig = s_out_sig_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">115</td>
+        <td id="source_line_115" title="" class="code none"><a name="115"></a>	 during[t+1, t_end-1]: b_in_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">116</td>
+        <td id="source_line_116" title="" class="code none"><a name="116"></a>	 at t_end: b_in_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">117</td>
+        <td id="source_line_117" title="" class="code none"><a name="117"></a>	 during[t+1, t_end-1]: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">118</td>
+        <td id="source_line_118" title="" class="code none"><a name="118"></a>	 at t_end: m_out_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">119</td>
+        <td id="source_line_119" title="" class="code none"><a name="119"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">120</td>
+        <td id="source_line_120" title="" class="code none"><a name="120"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">121</td>
+        <td id="source_line_121" title="" class="code none"><a name="121"></a>property frame_data_0_read_2 is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">122</td>
+        <td id="source_line_122" title="" class="code none"><a name="122"></a>dependencies: no_reset;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">123</td>
+        <td id="source_line_123" title="" class="code none"><a name="123"></a>for timepoints:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">124</td>
+        <td id="source_line_124" title="" class="code none"><a name="124"></a>	 t_end = t+1;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">125</td>
+        <td id="source_line_125" title="" class="code none"><a name="125"></a>freeze:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">126</td>
+        <td id="source_line_126" title="" class="code none"><a name="126"></a>	cnt_at_t = cnt@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">127</td>
+        <td id="source_line_127" title="" class="code none"><a name="127"></a>	msg_data_at_t = msg_data@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">128</td>
+        <td id="source_line_128" title="" class="code none"><a name="128"></a>	msg_status_at_t = msg_status@t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">129</td>
+        <td id="source_line_129" title="" class="code none"><a name="129"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">130</td>
+        <td id="source_line_130" title="" class="code none"><a name="130"></a>	 at t: frame_data_0;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">131</td>
+        <td id="source_line_131" title="" class="code none"><a name="131"></a>	 at t: (cnt = 0);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">132</td>
+        <td id="source_line_132" title="" class="code none"><a name="132"></a>	 at t: not(b_in_sync);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">133</td>
+        <td id="source_line_133" title="" class="code none"><a name="133"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">134</td>
+        <td id="source_line_134" title="" class="code none"><a name="134"></a>	 at t_end: idle_3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">135</td>
+        <td id="source_line_135" title="" class="code none"><a name="135"></a>	 at t_end: cnt = (-1 + cnt_at_t);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">136</td>
+        <td id="source_line_136" title="" class="code none"><a name="136"></a>	 at t_end: m_out_sig = msg_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">137</td>
+        <td id="source_line_137" title="" class="code none"><a name="137"></a>	 at t_end: msg_data = msg_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">138</td>
+        <td id="source_line_138" title="" class="code none"><a name="138"></a>	 at t_end: msg_status = msg_status_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">139</td>
+        <td id="source_line_139" title="" class="code none"><a name="139"></a>	 at t_end: s_out_sig = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">140</td>
+        <td id="source_line_140" title="" class="code none"><a name="140"></a>	 during[t+1, t_end-1]: b_in_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">141</td>
+        <td id="source_line_141" title="" class="code none"><a name="141"></a>	 at t_end: b_in_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">142</td>
+        <td id="source_line_142" title="" class="code none"><a name="142"></a>	 during[t+1, t_end-1]: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">143</td>
+        <td id="source_line_143" title="" class="code none"><a name="143"></a>	 at t_end: m_out_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">144</td>
+        <td id="source_line_144" title="" class="code none"><a name="144"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">145</td>
+        <td id="source_line_145" title="" class="code none"><a name="145"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">146</td>
+        <td id="source_line_146" title="" class="code none"><a name="146"></a>property frame_start_2_write_3 is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">147</td>
+        <td id="source_line_147" title="" class="code none"><a name="147"></a>dependencies: no_reset;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">148</td>
+        <td id="source_line_148" title="" class="code none"><a name="148"></a>for timepoints:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">149</td>
+        <td id="source_line_149" title="" class="code none"><a name="149"></a>	 t_end = t+1;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">150</td>
+        <td id="source_line_150" title="" class="code none"><a name="150"></a>freeze:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">151</td>
+        <td id="source_line_151" title="" class="code none"><a name="151"></a>	msg_data_at_t = msg_data@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">152</td>
+        <td id="source_line_152" title="" class="code none"><a name="152"></a>	msg_status_at_t = msg_status@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">153</td>
+        <td id="source_line_153" title="" class="code none"><a name="153"></a>	s_out_sig_at_t = s_out_sig@t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">154</td>
+        <td id="source_line_154" title="" class="code none"><a name="154"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">155</td>
+        <td id="source_line_155" title="" class="code none"><a name="155"></a>	 at t: frame_start_2;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">156</td>
+        <td id="source_line_156" title="" class="code none"><a name="156"></a>	 at t: (cnt = 1);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">157</td>
+        <td id="source_line_157" title="" class="code none"><a name="157"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">158</td>
+        <td id="source_line_158" title="" class="code none"><a name="158"></a>	 at t_end: frame_data_0;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">159</td>
+        <td id="source_line_159" title="" class="code none"><a name="159"></a>	 at t_end: cnt = 15;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">160</td>
+        <td id="source_line_160" title="" class="code none"><a name="160"></a>	 at t_end: msg_data = msg_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">161</td>
+        <td id="source_line_161" title="" class="code none"><a name="161"></a>	 at t_end: msg_status = msg_status_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">162</td>
+        <td id="source_line_162" title="" class="code none"><a name="162"></a>	 at t_end: s_out_sig = s_out_sig_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">163</td>
+        <td id="source_line_163" title="" class="code none"><a name="163"></a>	 during[t+1, t_end-1]: b_in_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">164</td>
+        <td id="source_line_164" title="" class="code none"><a name="164"></a>	 at t_end: b_in_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">165</td>
+        <td id="source_line_165" title="" class="code none"><a name="165"></a>	 during[t+1, t_end]: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">166</td>
+        <td id="source_line_166" title="" class="code none"><a name="166"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">167</td>
+        <td id="source_line_167" title="" class="code none"><a name="167"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">168</td>
+        <td id="source_line_168" title="" class="code none"><a name="168"></a>property frame_start_2_write_4 is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">169</td>
+        <td id="source_line_169" title="" class="code none"><a name="169"></a>dependencies: no_reset;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">170</td>
+        <td id="source_line_170" title="" class="code none"><a name="170"></a>for timepoints:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">171</td>
+        <td id="source_line_171" title="" class="code none"><a name="171"></a>	 t_end = t+1;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">172</td>
+        <td id="source_line_172" title="" class="code none"><a name="172"></a>freeze:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">173</td>
+        <td id="source_line_173" title="" class="code none"><a name="173"></a>	cnt_at_t = cnt@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">174</td>
+        <td id="source_line_174" title="" class="code none"><a name="174"></a>	msg_data_at_t = msg_data@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">175</td>
+        <td id="source_line_175" title="" class="code none"><a name="175"></a>	msg_status_at_t = msg_status@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">176</td>
+        <td id="source_line_176" title="" class="code none"><a name="176"></a>	s_out_sig_at_t = s_out_sig@t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">177</td>
+        <td id="source_line_177" title="" class="code none"><a name="177"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">178</td>
+        <td id="source_line_178" title="" class="code none"><a name="178"></a>	 at t: frame_start_2;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">179</td>
+        <td id="source_line_179" title="" class="code none"><a name="179"></a>	 at t: not((cnt = 1));</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">180</td>
+        <td id="source_line_180" title="" class="code none"><a name="180"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">181</td>
+        <td id="source_line_181" title="" class="code none"><a name="181"></a>	 at t_end: frame_start_2;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">182</td>
+        <td id="source_line_182" title="" class="code none"><a name="182"></a>	 at t_end: cnt = (-1 + cnt_at_t);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">183</td>
+        <td id="source_line_183" title="" class="code none"><a name="183"></a>	 at t_end: m_out_sig = (-1 + cnt_at_t);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">184</td>
+        <td id="source_line_184" title="" class="code none"><a name="184"></a>	 at t_end: msg_data = msg_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">185</td>
+        <td id="source_line_185" title="" class="code none"><a name="185"></a>	 at t_end: msg_status = msg_status_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">186</td>
+        <td id="source_line_186" title="" class="code none"><a name="186"></a>	 at t_end: s_out_sig = s_out_sig_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">187</td>
+        <td id="source_line_187" title="" class="code none"><a name="187"></a>	 during[t+1, t_end]: b_in_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">188</td>
+        <td id="source_line_188" title="" class="code none"><a name="188"></a>	 during[t+1, t_end-1]: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">189</td>
+        <td id="source_line_189" title="" class="code none"><a name="189"></a>	 at t_end: m_out_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">190</td>
+        <td id="source_line_190" title="" class="code none"><a name="190"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">191</td>
+        <td id="source_line_191" title="" class="code none"><a name="191"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">192</td>
+        <td id="source_line_192" title="" class="code none"><a name="192"></a>property idle_3_read_5 is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">193</td>
+        <td id="source_line_193" title="" class="code none"><a name="193"></a>dependencies: no_reset;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">194</td>
+        <td id="source_line_194" title="" class="code none"><a name="194"></a>for timepoints:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">195</td>
+        <td id="source_line_195" title="" class="code none"><a name="195"></a>	 t_end = t+32;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">196</td>
+        <td id="source_line_196" title="" class="code none"><a name="196"></a>freeze:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">197</td>
+        <td id="source_line_197" title="" class="code none"><a name="197"></a>	b_in_sig_data_at_t = b_in_sig_data@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">198</td>
+        <td id="source_line_198" title="" class="code none"><a name="198"></a>	b_in_sig_status_at_t = b_in_sig_status@t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">199</td>
+        <td id="source_line_199" title="" class="code none"><a name="199"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">200</td>
+        <td id="source_line_200" title="" class="code none"><a name="200"></a>	 at t: idle_3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">201</td>
+        <td id="source_line_201" title="" class="code none"><a name="201"></a>	 at t: (b_in_sig_status = in_frame);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">202</td>
+        <td id="source_line_202" title="" class="code none"><a name="202"></a>	 at t: b_in_sync;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">203</td>
+        <td id="source_line_203" title="" class="code none"><a name="203"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">204</td>
+        <td id="source_line_204" title="" class="code none"><a name="204"></a>	 at t_end: frame_start_2;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">205</td>
+        <td id="source_line_205" title="" class="code none"><a name="205"></a>	 at t_end: cnt = 3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">206</td>
+        <td id="source_line_206" title="" class="code none"><a name="206"></a>	 at t_end: m_out_sig = 3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">207</td>
+        <td id="source_line_207" title="" class="code none"><a name="207"></a>	 at t_end: msg_data = b_in_sig_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">208</td>
+        <td id="source_line_208" title="" class="code none"><a name="208"></a>	 at t_end: msg_status = b_in_sig_status_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">209</td>
+        <td id="source_line_209" title="" class="code none"><a name="209"></a>	 at t_end: s_out_sig = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">210</td>
+        <td id="source_line_210" title="" class="code none"><a name="210"></a>	 during[t+1, t_end]: b_in_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">211</td>
+        <td id="source_line_211" title="" class="code none"><a name="211"></a>	 during[t+1, t_end-1]: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">212</td>
+        <td id="source_line_212" title="" class="code none"><a name="212"></a>	 at t_end: m_out_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">213</td>
+        <td id="source_line_213" title="" class="code none"><a name="213"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">214</td>
+        <td id="source_line_214" title="" class="code none"><a name="214"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">215</td>
+        <td id="source_line_215" title="" class="code none"><a name="215"></a>property idle_3_read_6 is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">216</td>
+        <td id="source_line_216" title="" class="code none"><a name="216"></a>dependencies: no_reset;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">217</td>
+        <td id="source_line_217" title="" class="code none"><a name="217"></a>for timepoints:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">218</td>
+        <td id="source_line_218" title="" class="code none"><a name="218"></a>	 t_end = t+32;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">219</td>
+        <td id="source_line_219" title="" class="code none"><a name="219"></a>freeze:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">220</td>
+        <td id="source_line_220" title="" class="code none"><a name="220"></a>	b_in_sig_data_at_t = b_in_sig_data@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">221</td>
+        <td id="source_line_221" title="" class="code none"><a name="221"></a>	b_in_sig_status_at_t = b_in_sig_status@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">222</td>
+        <td id="source_line_222" title="" class="code none"><a name="222"></a>	cnt_at_t = cnt@t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">223</td>
+        <td id="source_line_223" title="" class="code none"><a name="223"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">224</td>
+        <td id="source_line_224" title="" class="code none"><a name="224"></a>	 at t: idle_3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">225</td>
+        <td id="source_line_225" title="" class="code none"><a name="225"></a>	 at t: not((b_in_sig_status = in_frame));</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">226</td>
+        <td id="source_line_226" title="" class="code none"><a name="226"></a>	 at t: b_in_sync;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">227</td>
+        <td id="source_line_227" title="" class="code none"><a name="227"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">228</td>
+        <td id="source_line_228" title="" class="code none"><a name="228"></a>	 at t_end: idle_3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">229</td>
+        <td id="source_line_229" title="" class="code none"><a name="229"></a>	 at t_end: cnt = cnt_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">230</td>
+        <td id="source_line_230" title="" class="code none"><a name="230"></a>	 at t_end: msg_data = b_in_sig_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">231</td>
+        <td id="source_line_231" title="" class="code none"><a name="231"></a>	 at t_end: msg_status = b_in_sig_status_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">232</td>
+        <td id="source_line_232" title="" class="code none"><a name="232"></a>	 at t_end: s_out_sig = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">233</td>
+        <td id="source_line_233" title="" class="code none"><a name="233"></a>	 during[t+1, t_end-1]: b_in_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">234</td>
+        <td id="source_line_234" title="" class="code none"><a name="234"></a>	 at t_end: b_in_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">235</td>
+        <td id="source_line_235" title="" class="code none"><a name="235"></a>	 during[t+1, t_end]: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">236</td>
+        <td id="source_line_236" title="" class="code none"><a name="236"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">237</td>
+        <td id="source_line_237" title="" class="code none"><a name="237"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">238</td>
+        <td id="source_line_238" title="" class="code none"><a name="238"></a>property wait_idle_3 is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">239</td>
+        <td id="source_line_239" title="" class="code none"><a name="239"></a>dependencies: no_reset;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">240</td>
+        <td id="source_line_240" title="" class="code none"><a name="240"></a>freeze:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">241</td>
+        <td id="source_line_241" title="" class="code none"><a name="241"></a>	cnt_at_t = cnt@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">242</td>
+        <td id="source_line_242" title="" class="code none"><a name="242"></a>	msg_data_at_t = msg_data@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">243</td>
+        <td id="source_line_243" title="" class="code none"><a name="243"></a>	msg_status_at_t = msg_status@t,</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">244</td>
+        <td id="source_line_244" title="" class="code none"><a name="244"></a>	s_out_sig_at_t = s_out_sig@t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">245</td>
+        <td id="source_line_245" title="" class="code none"><a name="245"></a>assume:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">246</td>
+        <td id="source_line_246" title="" class="code none"><a name="246"></a>	 at t: idle_3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">247</td>
+        <td id="source_line_247" title="" class="code none"><a name="247"></a>	 at t: not(b_in_sync);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">248</td>
+        <td id="source_line_248" title="" class="code none"><a name="248"></a>prove:</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">249</td>
+        <td id="source_line_249" title="" class="code none"><a name="249"></a>	 at t+1: idle_3;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">250</td>
+        <td id="source_line_250" title="" class="code none"><a name="250"></a>	 at t+1: cnt = cnt_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">251</td>
+        <td id="source_line_251" title="" class="code none"><a name="251"></a>	 at t+1: msg_data = msg_data_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">252</td>
+        <td id="source_line_252" title="" class="code none"><a name="252"></a>	 at t+1: msg_status = msg_status_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">253</td>
+        <td id="source_line_253" title="" class="code none"><a name="253"></a>	 at t+1: s_out_sig = s_out_sig_at_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">254</td>
+        <td id="source_line_254" title="" class="code none"><a name="254"></a>	 at t+1: b_in_notify = true;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">255</td>
+        <td id="source_line_255" title="" class="code none"><a name="255"></a>	 at t+1: m_out_notify = false;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">256</td>
+        <td id="source_line_256" title="" class="code none"><a name="256"></a>end property;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+              </table>
+   </tr>
+  </table>
+  </div>
+  </div>
+  <div id="footer">
+      <div align="center"><img src="images/wave_end.png" /></div>
+  </div>
+  </body>
+ </html>

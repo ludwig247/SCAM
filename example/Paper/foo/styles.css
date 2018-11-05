@@ -1,0 +1,233 @@
+/*
+   Cascading Style Sheets for Quantify HDL Browser
+*/
+
+div.noscript {
+  font-size: 18px;
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  line-height: 60px;
+  color:      #FFFFFF;
+  background: #DF0101;
+  text-align: center;
+  margin : 30 0;
+  width: 998px;
+}
+
+div.hidden {
+  display: none;
+}
+
+#main{
+  width: 998px ;
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
+#header_title { 
+  margin-left: auto ;
+  margin-right: auto ;
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  font-size: 20px; 
+  font-weight: bold; 
+  text-align: center;
+  color: #004874;
+} 
+
+div#control-panel-button { 
+  right: 15px;
+  top:   70px;
+  position:fixed;
+}
+
+div#control-panel { 
+  right: 5px;
+  top:   20px;
+  position:fixed;
+  display: none;
+
+  padding: 10px 10px;
+  background-color: #CFCFCF;
+}
+
+h1 { 
+  font-size: 18px;
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  line-height: 20px;
+}
+
+td {
+  padding: 2px 10px 2px 10px;
+  font-size: 12px;
+  font-family: Arial, Tahoma, Verdana, sans-serif;
+  line-height: 16px;
+}
+
+td.code {
+  font-size: 12px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  line-break: loose;
+}
+
+td.header {
+  font-size: 14px;
+  background-color: #2071B2;
+  color: White;
+}
+
+td.sub_header {
+  font-size: 12px;
+  background-color: #B7B7B6;
+  color: Black;
+}
+
+td.line_no {
+  width: 30px;
+  color:      DarkSlateGrey;
+  background: #F7F7F7;
+}
+
+td.none {
+  color:      #808080;
+  background: none;
+}
+
+td.normal {
+  color:      Black;
+  background: none;
+}
+
+td.normal_entry {
+  color:      Black;
+  background: #E7E7E7;
+}
+
+.break_word { 
+  word-break: break-all;
+} 
+
+td.verification_statement {
+  color:      #000000;
+  background: #A9F5BC;
+}
+
+td.target_statement {
+  color:      #000000;
+  background: #A9BCF5;
+}
+
+td.covered_statement {
+  color:      #000000;
+  background: #31B404;
+}
+
+td.reached_statement {
+  color:      #000000;
+  background: #BFFF00;
+}
+
+td.unobserved_statement {
+  color:      #000000;
+  background: #FFBF00;
+}
+
+td.unknown_statement {
+  color:      #000000;
+  background: #FFFF99;
+}
+
+td.discovered_statement {
+  color:      #FFFFFF;
+  background: #DF0101;
+}
+
+td.excluded_statement {
+  color:      Black;
+  background: #E6E6E6;
+}
+
+td.constrained_statement {
+  color:      #FFFFFF;
+  background: #660000;
+}
+
+td.dead_statement {
+  color:      #FFFFFF;
+  background: #000000;
+}
+
+td.redundant_statement {
+  color:      #000000;
+  background: #F78181;
+}
+
+td.verification_branch {
+  color:      #000000;
+  background: #A9F5BC;
+}
+
+td.target_branch {
+  color:      #000000;
+  background: #A9BCF5;
+}
+
+td.covered_branch {
+  color:      #000000;
+  background: #31B404;
+}
+
+td.reached_branch {
+  color:      #000000;
+  background: #BFFF00;
+}
+
+td.unobserved_branch {
+  color:      #000000;
+  background: #FFBF00;
+}
+
+td.unknown_branch {
+  color:      #000000;
+  background: #FFFF99;
+}
+
+td.discovered_branch {
+  color:      #FFFFFF;
+  background: #DF0101;
+}
+
+td.constrained_branch {
+  color:      #FFFFFF;
+  background: #660000;
+}
+
+td.excluded_branch {
+  color:      Black;
+  background: #E6E6E6;
+}
+
+td.dead_branch {
+  color:      #FFFFFF;
+  background: #000000;
+}
+
+td.redundant_branch {
+  color:      #000000;
+  background: #F78181;
+}
+
+table {
+  margin-top: 0px;
+  vertical-align: top;
+  background-color: White;
+}
+
+table.header {
+  border: 1px solid Navy;
+}
+
+table.content {
+  border: 1px solid Black;
+}
+
+*[onclick] { cursor: pointer }

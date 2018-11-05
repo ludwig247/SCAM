@@ -1,0 +1,207 @@
+-- MODULE: Lcd
+-- SYNC AND NOTIFY SIGNALS (1-cycle macros) --
+macro lcd_out_sync : boolean := end macro;
+macro value_input_sync : boolean := end macro;
+macro lcd_out_notify : boolean := end macro;
+macro value_input_notify : boolean := end macro;
+
+
+-- DP SIGNALS --
+macro lcd_out_sig : numeric := end macro;
+macro value_input_sig : numeric := end macro;
+
+
+--CONSTRAINTS--
+ constraint no_reset := reset = '0'; end constraint;
+
+
+-- VISIBLE REGISTERS --
+macro lcd_out : numeric := end macro;
+macro lcd_value : numeric := end macro;
+
+
+-- STATES --
+macro run_R_1 : boolean := end macro;
+macro run_W_2 : boolean := end macro;
+macro run_W_3 : boolean := end macro;
+
+
+-- OPERATIONS --
+
+
+property reset is
+  for timepoints:
+    t_end = specify;
+  assume: reset_sequence;
+  prove:
+    during[t+1, t_end-1]: value_input_notify = false;
+    at t_end: value_input_notify = true;
+    during[t+1, t_end]: lcd_out_notify = false;
+
+    at t_end: run_R_1;
+end property;
+
+property op_1 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  assume:
+    at t: run_R_1;
+    at t: ((not (value_input_sig < 0)) and (not (value_input_sig > 255)));
+    at t: value_input_sync;
+  prove:
+    during[t+1, t_end-1]: value_input_notify = false;
+    at t_end: value_input_notify = true;
+    during[t+1, t_end]: lcd_out_notify = false;
+
+    at t_end: run_R_1;
+end property;
+
+property wait_2 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  assume:
+    at t: run_R_1;
+    at t: (not value_input_sync);
+  prove:
+    at t+1: value_input_notify = true;
+    at t+1: lcd_out_notify = false;
+
+    at t+1: run_R_1;
+end property;
+
+property op_3 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  freeze:
+    atT_value_input_sig = value_input_sig @ t;
+  assume:
+    at t: run_R_1;
+    at t: (value_input_sig > 255);
+    at t: value_input_sync;
+  prove:
+    during[t+1, t_end]: value_input_notify = false;
+    during[t+1, t_end-1]: lcd_out_notify = false;
+    at t_end: lcd_out_notify = true;
+
+    at t_end: lcd_value = atT_value_input_sig;
+    at t_end: lcd_out = 255;
+    at t_end: run_W_2;
+end property;
+
+property op_4 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  assume:
+    at t: run_R_1;
+    at t: ((value_input_sig < 0) and (not (value_input_sig > 255)));
+    at t: value_input_sync;
+  prove:
+    during[t+1, t_end]: value_input_notify = false;
+    during[t+1, t_end-1]: lcd_out_notify = false;
+    at t_end: lcd_out_notify = true;
+
+    at t_end: lcd_out = 0;
+    at t_end: run_W_3;
+end property;
+
+property op_5 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  freeze:
+    atT_lcd_out = lcd_out @ t;
+  assume:
+    at t: run_W_2;
+    at t: (not (lcd_value < 0));
+    at t: lcd_out_sync;
+  prove:
+    during[t+1, t_end-1]: value_input_notify = false;
+    at t_end: value_input_notify = true;
+    during[t+1, t_end]: lcd_out_notify = false;
+    at t: lcd_out_sig = atT_lcd_out;
+
+    at t_end: run_R_1;
+end property;
+
+property wait_6 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  freeze:
+    atT_lcd_value = lcd_value @ t,
+    atT_lcd_out = lcd_out @ t;
+  assume:
+    at t: run_W_2;
+    at t: (not lcd_out_sync);
+  prove:
+    at t+1: value_input_notify = false;
+    at t+1: lcd_out_notify = true;
+
+    at t+1: lcd_value = atT_lcd_value;
+    at t+1: lcd_out = atT_lcd_out;
+    at t+1: run_W_2;
+end property;
+
+property op_7 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  freeze:
+    atT_lcd_out = lcd_out @ t;
+  assume:
+    at t: run_W_2;
+    at t: (lcd_value < 0);
+    at t: lcd_out_sync;
+  prove:
+    during[t+1, t_end]: value_input_notify = false;
+    during[t+1, t_end-1]: lcd_out_notify = false;
+    at t_end: lcd_out_notify = true;
+    at t: lcd_out_sig = atT_lcd_out;
+
+    at t_end: lcd_out = 0;
+    at t_end: run_W_3;
+end property;
+
+property op_8 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  freeze:
+    atT_lcd_out = lcd_out @ t;
+  assume:
+    at t: run_W_3;
+    at t: lcd_out_sync;
+  prove:
+    during[t+1, t_end-1]: value_input_notify = false;
+    at t_end: value_input_notify = true;
+    during[t+1, t_end]: lcd_out_notify = false;
+    at t: lcd_out_sig = atT_lcd_out;
+
+    at t_end: run_R_1;
+end property;
+
+property wait_9 is
+  dependencies: no_reset;
+  for timepoints:
+    t_end = specify;
+  freeze:
+    atT_lcd_out = lcd_out @ t;
+  assume:
+    at t: run_W_3;
+    at t: (not lcd_out_sync);
+  prove:
+    at t+1: value_input_notify = false;
+    at t+1: lcd_out_notify = true;
+
+    at t+1: lcd_out = atT_lcd_out;
+    at t+1: run_W_3;
+end property;
+
+
+
+
+Process finished with exit code 0

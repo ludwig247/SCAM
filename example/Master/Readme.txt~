@@ -1,0 +1,25 @@
+
+-------------
+Description
+-------------
+The master describes a controller for a system that reads a value from a sensor. 
+If 5 values are accumulated, they are averaged and send to a lcd-screen.
+The FSM of the master has two states(collecting and printing). 
+He stays in collecting until 5 values are collected. 
+Then the state changes and he stays within printing until the lcd is ready to read the values.
+Afterwards the master returns the the state collecting. 
+
+
+-------------
+Top-Down Flow
+-------------
+
+From the Master.h description the master.model is created. 
+I'd recommend to compare those two files and get an understanding 
+for the abstraction from a SystemC description to a architecture level description. 
+From master.model the complete set of properties in master_property.vhi is created. 
+Here I'd recommend to check which part of the system model is covered by which property.
+
+In order to prove completeness the .gfv is needed. 
+
+

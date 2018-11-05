@@ -1,0 +1,36 @@
+module Master
+{
+  in<int> sensor;
+
+  out<int> lcd;
+
+
+FSM behavior
+{
+  STATES = {collecting, printing};
+  var<int> cnt;
+  var<int> lcd_value;
+  var<int> sensor_value;
+
+  @init :
+    cnt = 0;
+    lcd_value = 0;
+    nextstate = collecting;
+  @collecting :
+    //if (cnt < 5) {
+      read(sensor);
+      lcd_value = (lcd_value + sensor);
+      cnt = (cnt + 1);
+      nextstate = collecting;
+      if (cnt == 5) {
+        nextstate = printing;
+      }
+    //}
+  @printing :
+    cnt = 1;
+    lcd_value = (lcd_value / 5);
+    lcd = lcd_value;
+    write( lcd );
+    nextstate = collecting;
+}
+};

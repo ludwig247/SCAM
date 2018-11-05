@@ -1,0 +1,1069 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+ <html>
+  <head>
+<!-- TAG:file /import/home/ludwig/SCAM/example/Paper/Paper.vhdl -->
+    <title>Quantify MDV File Result</title>
+    <link rel="stylesheet" href="styles.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="styles.css" type="text/css" media="print" />
+    <link rel="stylesheet" href="jquery/jquery-ui-1.8.14.custom.css" type="text/css" media="all" />
+    <script type="text/javascript" src="jquery/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="jquery/jquery-ui-1.8.14.custom.min.js"></script>
+    <script type="text/javascript" src="quantify-control.js"></script>
+    <script type="text/javascript" src="results.js"></script>
+    <script type="text/javascript" src="quantify-results.js"></script>
+  </head>
+  <body>
+      <div id="control-panel-button">
+        <button id="show_control_panel">show control panel</button>
+      </div>
+      <div id="control-panel" class="ui-widget-header ui-corner-all">
+        <button id="hide_control_panel">hide control panel</button>
+        <button id="home">home</button>
+        <span id="button_set_ctrl">
+          <button id="goto_first">first</button>
+          <button id="goto_prev">previous</button>
+          <button id="goto_next">next</button>
+          <button id="goto_last">last</button>
+        </span>
+        <span id="button_set_st_br">
+          <input type="checkbox" id="sel_st" checked="1" /> <label id="sel_st_label" for="sel_st" title="Statements">St</label>
+          <input type="checkbox" id="sel_br" />             <label id="sel_br_label" for="sel_br" title="Branches"  >Br</label>
+        </span>
+        <span id="button_set_1U0X">
+          <input type="checkbox" id="st_1" /> <label id="st_1_label" for="st_1"   title="covered"     >1</label>
+          <input type="checkbox" id="st_R" /> <label id="st_R_label" for="st_R"   title="reached"   >R</label>
+          <input type="checkbox" id="st_U" /> <label id="st_U_label" for="st_U"   title="unknown"        >U</label>
+          <input type="checkbox" id="st_0R" /> <label id="st_0R_label" for="st_0R" title="unobserved"  >0R</label>
+          <input type="checkbox" id="st_0" /> <label id="st_0_label" for="st_0"   title="uncovered"   >0</label>
+          <input type="checkbox" id="st_0c"/> <label id="st_0c_label" for="st_0c" title="contrained"  >0C</label>
+          <input type="checkbox" id="st_0d"/> <label id="st_0d_label" for="st_0d" title="dead"        >0D</label>
+          <input type="checkbox" id="st_Xu"/> <label id="st_Xu_label" for="st_Xu" title="excluded"    >Xu</label>
+          <input type="checkbox" id="st_Xr"/> <label id="st_Xr_label" for="st_Xr" title="redundant"   >Xr</label>
+          <input type="checkbox" id="st_Xv"/> <label id="st_Xv_label" for="st_Xv" title="verification">Xv</label>
+        </span>
+      </div>
+      <div class="hidden" id="summary_covered_statement"      >0</div>
+      <div class="hidden" id="summary_reached_statement"      >0</div>
+      <div class="hidden" id="summary_unknown_statement"      >39</div>
+      <div class="hidden" id="summary_unobserved_statement"      >0</div>
+      <div class="hidden" id="summary_discovered_statement"   >0</div>
+      <div class="hidden" id="summary_constrained_statement"  >10</div>
+      <div class="hidden" id="summary_dead_statement"         >0</div>
+      <div class="hidden" id="summary_excluded_statement"     >0</div>
+      <div class="hidden" id="summary_redundant_statement"    >0</div>
+      <div class="hidden" id="summary_verification_statement" >0</div>
+      <div class="hidden" id="summary_covered_branch"      >0</div>
+      <div class="hidden" id="summary_reached_branch"    >0</div>
+      <div class="hidden" id="summary_unknown_branch"      >29</div>
+      <div class="hidden" id="summary_unobserved_branch"   >0</div>
+      <div class="hidden" id="summary_discovered_branch"   >0</div>
+      <div class="hidden" id="summary_constrained_branch"  >4</div>
+      <div class="hidden" id="summary_dead_branch"         >0</div>
+      <div class="hidden" id="summary_excluded_branch"     >0</div>
+      <div class="hidden" id="summary_redundant_branch"    >0</div>
+      <div class="hidden" id="summary_verification_branch" >0</div>
+   <div align="left">
+	  <div id="container">
+	    <div align="center"><img src="images/wave.png" /></div>
+	    <div id="header_title">
+	       Quantify MDV File Result
+	    </div>
+	  </div>
+        <noscript><div class="noscript">JavaScript must be enabled in order to use all features of this site.</div></noscript>
+        <div id=main>
+    <table cellspacing="0" cellpadding="0">
+     <tr>
+	    <td><a href="index.html">Overview</a></td>
+	    <td><a href="index.html#Summary">Structural Coverage Overview</a></td>
+	    <td><a href="index.html#Coverage">Structural Coverage by File</a></td>
+	    <td><a href="index.html#Properties">Assertion Coverage</a></td>
+	    <td><a href="index.html#Files">File Status</a></td>
+	    <td><a href="index.html#Info">Additional Information</a></td>
+     </tr>
+    </table>
+  <br/>
+  <table class="header" width="998" cellspacing="0" cellpadding="0">
+   <tr>
+	  <td class="header"><a name="Summary"></a><b>Structural Coverage for Paper.vhdl</b></td>
+   </tr>
+   <tr>
+	   <table class="content" width="998" cellspacing="1" cellpadding="0">
+      <tr>
+	      <td width="180"  colspan="2" align="left" class="sub_header"><b>Status</b></td>
+        <td align="left" colspan="2" class="sub_header"><b>Statements</b></td>
+        <td align="left" colspan="2" class="sub_header"><b>Branches</b></td>
+      </tr>
+            <tr>
+              <td class="covered_statement" width="30"  title="observed and reached" align="left">1</td>
+              <td class="covered_statement" width="150" title="observed and reached" align="left"><b>covered</b></td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="covered_statement" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="covered_branch" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+            </tr>
+            <tr>
+              <td class="reached_statement" width="30"  title="reached (and unknown whether observed)" align="left">R</td>
+              <td class="reached_statement" width="150" title="reached (and unknown whether observed)" align="left">reached</td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="reached_statement" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="reached_branch" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+            </tr>
+            <tr>
+              <td class="unknown_statement" width="30"  title="not reached (and unknown whether observed)" align="left">U</td>
+              <td class="unknown_statement" width="150" title="not reached (and unknown whether observed)" align="left">unknown</td>
+              <td class="normal_entry" align="right">39</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" align="right" class="unknown_statement" width="79.59%" title="39 (79.59%)"> 79.59% </td>
+                  <td style="padding: 0px 0px 0px 0px;" class="normal_entry" width="20.409999999999997%" title="39 (79.59%)">&nbsp;</td>
+                         </tr>
+                       </table>
+                     </td>
+              <td class="normal_entry" align="right">29</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" align="right" class="unknown_branch" width="87.88%" title="29 (87.88%)"> 87.88% </td>
+                  <td style="padding: 0px 0px 0px 0px;" class="normal_entry" width="12.120000000000005%" title="29 (87.88%)">&nbsp;</td>
+                         </tr>
+                       </table>
+                     </td>
+            </tr>
+            <tr>
+              <td class="unobserved_statement" width="30"  title="not observed (but reached)" align="left">0R</td>
+              <td class="unobserved_statement" width="150" title="not observed (but reached)" align="left">unobserved</td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="unobserved_statement" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="unobserved_branch" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+            </tr>
+            <tr>
+              <td class="discovered_statement" width="30"  title="not reached and not observed" align="left">0</td>
+              <td class="discovered_statement" width="150" title="not reached and not observed" align="left">uncovered</td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="discovered_statement" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="discovered_branch" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+            </tr>
+            <tr>
+              <td class="constrained_statement" width="30"  title="unreachable (and unobservable) due to constraints" align="left">0C</td>
+              <td class="constrained_statement" width="150" title="unreachable (and unobservable) due to constraints" align="left">constrained</td>
+              <td class="normal_entry" align="right">10</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="constrained_statement" width="20.41%" title="10 (20.41%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="79.59%" title="10 (20.41%)"> 20.41% </td>
+                         </tr>
+                       </table>
+                     </td>
+              <td class="normal_entry" align="right">4</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="constrained_branch" width="12.12%" title="4 (12.12%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="87.88%" title="4 (12.12%)"> 12.12% </td>
+                         </tr>
+                       </table>
+                     </td>
+            </tr>
+            <tr>
+              <td class="dead_statement" width="30"  title="unreachable and unobservable" align="left">0D</td>
+              <td class="dead_statement" width="150" title="unreachable and unobservable" align="left">dead</td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="dead_statement" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+              <td class="normal_entry" align="right">0</td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="0" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="dead_branch" width="0.00%" title="0 (0.00%)">&nbsp;</td>
+                  <td style="padding: 0px 0px 0px 0px;" align="left" class="normal_entry" width="100.0%" title="0 (0.00%)"> 0.00% </td>
+                         </tr>
+                       </table>
+                     </td>
+            </tr>
+                     <td  class="normal_entry" align="left"><b>Sum</b></td>
+                     <td  class="normal_entry" align="left"><b>quantify targets</b></td>
+                     <td  class="normal_entry" align="right"><b>49</b></td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="1" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="unknown_statement" width="79.59%" title="39 unknown statement(s) (79.59%)">&nbsp;</td>
+                    <td style="padding: 0px 0px 0px 0px;" class="constrained_statement" width="20.41%" title="10 constrained statement(s) (20.41%)">&nbsp;</td>
+                         </tr>
+                       </table>
+                     </td>
+                     <td  class="normal_entry" align="right"><b>33</b></td>
+                     <td class="normal_entry">
+                       <table width="150" cellspacing="1" cellpadding="0">
+                         <tr>
+                    <td style="padding: 0px 0px 0px 0px;" class="unknown_branch" width="87.88%" title="29 unknown branch(es) (87.88%)">&nbsp;</td>
+                    <td style="padding: 0px 0px 0px 0px;" class="constrained_branch" width="12.12%" title="4 constrained branch(es) (12.12%)">&nbsp;</td>
+                         </tr>
+                       </table>
+                     </td>
+          </table>
+   </tr>
+  </table>
+  <br/>
+  <table class="header" width="998" cellspacing="0" cellpadding="0">
+   <tr>
+	  <td class="header"><a name="Source"></a><b>Annotated Source for Paper.vhdl</b></td>
+   </tr>
+   <tr>
+              <table id="source_code_table" class="content" width="998" cellspacing="1" cellpadding="0">
+      <tr>
+        <td class="line_no">1</td>
+        <td id="source_line_1" title="" class="code none"><a name="1"></a>library ieee ;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">2</td>
+        <td id="source_line_2" title="" class="code none"><a name="2"></a>use ieee.std_logic_1164.all;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">3</td>
+        <td id="source_line_3" title="" class="code none"><a name="3"></a>use IEEE.numeric_std.all;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">4</td>
+        <td id="source_line_4" title="" class="code none"><a name="4"></a>use work.SCAM_Model_types.all;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">5</td>
+        <td id="source_line_5" title="" class="code none"><a name="5"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">6</td>
+        <td id="source_line_6" title="" class="code none"><a name="6"></a>entity Example is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">7</td>
+        <td id="source_line_7" title="" class="code none"><a name="7"></a>port(</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">8</td>
+        <td id="source_line_8" title="" class="code none"><a name="8"></a>	clk:		in std_logic;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">9</td>
+        <td id="source_line_9" title="" class="code none"><a name="9"></a>	rst:		in std_logic;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">10</td>
+        <td id="source_line_10" title="" class="code none"><a name="10"></a>	data_in:	in signed(0 downto 0);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">11</td>
+        <td id="source_line_11" title="" class="code none"><a name="11"></a>	b_in_sync:	 in bool;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">12</td>
+        <td id="source_line_12" title="" class="code none"><a name="12"></a>	b_in_notify:	 out bool;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">13</td>
+        <td id="source_line_13" title="" class="code none"><a name="13"></a>	m_out:		out int;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">14</td>
+        <td id="source_line_14" title="" class="code none"><a name="14"></a>	m_out_notify:	 out bool;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">15</td>
+        <td id="source_line_15" title="" class="code none"><a name="15"></a>	s_out:		out bool</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">16</td>
+        <td id="source_line_16" title="" class="code none"><a name="16"></a>	 );</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">17</td>
+        <td id="source_line_17" title="" class="code none"><a name="17"></a>end Example;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">18</td>
+        <td id="source_line_18" title="" class="code none"><a name="18"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">19</td>
+        <td id="source_line_19" title="" class="code none"><a name="19"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">20</td>
+        <td id="source_line_20" title="" class="code none"><a name="20"></a>architecture Example_arch of Example is</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">21</td>
+        <td id="source_line_21" title="" class="code none"><a name="21"></a>signal section: Example_SECTIONS;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">22</td>
+        <td id="source_line_22" title="" class="code none"><a name="22"></a>			 signal cnt_signal:int;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">23</td>
+        <td id="source_line_23" title="" class="code none"><a name="23"></a>			 signal msg_signal:msg_t;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">24</td>
+        <td id="source_line_24" title="" class="code none"><a name="24"></a>			 signal msg_status_buffer:unsigned(3 downto 0);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">25</td>
+        <td id="source_line_25" title="" class="code none"><a name="25"></a>			 signal msg_data_buffer:signed(31 downto 0);</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">26</td>
+        <td id="source_line_26" title="" class="code none"><a name="26"></a>			 signal msg_status_bit:status_t := in_frame;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">27</td>
+        <td id="source_line_27" title="" class="code none"><a name="27"></a>			 signal buffer_cnt: int;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">28</td>
+        <td id="source_line_28" title="" class="code none"><a name="28"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">29</td>
+        <td id="source_line_29" title="" class="code none"><a name="29"></a>			</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">30</td>
+        <td id="source_line_30" title="" class="code none"><a name="30"></a>begin	</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">31</td>
+        <td id="source_line_31" title="" class="code none"><a name="31"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">32</td>
+        <td id="source_line_32" title="unknown branch" class="code unknown_branch"><a name="32"></a>MAIN_CONTROL_PROC: process(clk)</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">33</td>
+        <td id="source_line_33" title="" class="code none"><a name="33"></a> begin</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">34</td>
+        <td id="source_line_34" title="unknown branch" class="code unknown_branch"><a name="34"></a>	 if(clk='1' and clk'event) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">35</td>
+        <td id="source_line_35" title="constrained branch" class="code constrained_branch"><a name="35"></a>		 if rst = '1' then</td>
+        <td width="2" title="constrained branch" class="constrained_branch">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">36</td>
+        <td id="source_line_36" title="constrained statement" class="code constrained_statement"><a name="36"></a>			section &lt;=idle;</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">37</td>
+        <td id="source_line_37" title="constrained statement" class="code constrained_statement"><a name="37"></a>			cnt_signal&lt;= 0;</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">38</td>
+        <td id="source_line_38" title="constrained statement" class="code constrained_statement"><a name="38"></a>			msg_signal.status&lt;=in_frame;</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">39</td>
+        <td id="source_line_39" title="constrained statement" class="code constrained_statement"><a name="39"></a>			s_out &lt;= false;</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">40</td>
+        <td id="source_line_40" title="constrained statement" class="code constrained_statement"><a name="40"></a>			b_in_notify &lt;= true;</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">41</td>
+        <td id="source_line_41" title="constrained statement" class="code constrained_statement"><a name="41"></a>			m_out_notify &lt;= false;</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">42</td>
+        <td id="source_line_42" title="unknown branch" class="code unknown_branch"><a name="42"></a>		 else</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">43</td>
+        <td id="source_line_43" title="unknown branch" class="code unknown_branch"><a name="43"></a>		 if section = frame_data then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">44</td>
+        <td id="source_line_44" title="" class="code none"><a name="44"></a>			 </td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">45</td>
+        <td id="source_line_45" title="unknown branch" class="code unknown_branch"><a name="45"></a>			  if(b_in_sync and buffer_cnt = 0) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">46</td>
+        <td id="source_line_46" title="unknown statement" class="code unknown_statement"><a name="46"></a>				msg_signal.status &lt;= msg_status_bit;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">47</td>
+        <td id="source_line_47" title="unknown statement" class="code unknown_statement"><a name="47"></a>				m_out_notify &lt;= false;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">48</td>
+        <td id="source_line_48" title="unknown statement" class="code unknown_statement"><a name="48"></a>				b_in_notify &lt;= false;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">49</td>
+        <td id="source_line_49" title="unknown branch" class="code unknown_branch"><a name="49"></a>			  else</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">50</td>
+        <td id="source_line_50" title="unknown statement" class="code unknown_statement"><a name="50"></a>				b_in_notify &lt;= (buffer_cnt = 31);</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">51</td>
+        <td id="source_line_51" title="unknown branch" class="code unknown_branch"><a name="51"></a>				if(cnt_signal /= 0 and buffer_cnt = 0) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">52</td>
+        <td id="source_line_52" title="unknown statement" class="code unknown_statement"><a name="52"></a>					cnt_signal &lt;= cnt_signal -1;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">53</td>
+        <td id="source_line_53" title="unknown statement" class="code unknown_statement"><a name="53"></a>					m_out &lt;= to_integer(msg_signal.data);</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">54</td>
+        <td id="source_line_54" title="unknown statement" class="code unknown_statement"><a name="54"></a>					m_out_notify &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">55</td>
+        <td id="source_line_55" title="unknown statement" class="code unknown_statement"><a name="55"></a>					b_in_notify &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">56</td>
+        <td id="source_line_56" title="" class="code none"><a name="56"></a>					</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">57</td>
+        <td id="source_line_57" title="unknown branch" class="code unknown_branch"><a name="57"></a>				elsif(cnt_signal = 0 and buffer_cnt = 0) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">58</td>
+        <td id="source_line_58" title="unknown statement" class="code unknown_statement"><a name="58"></a>					section &lt;= idle;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">59</td>
+        <td id="source_line_59" title="unknown statement" class="code unknown_statement"><a name="59"></a>					cnt_signal &lt;= cnt_signal - 1;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">60</td>
+        <td id="source_line_60" title="unknown statement" class="code unknown_statement"><a name="60"></a>					s_out &lt;= false;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">61</td>
+        <td id="source_line_61" title="unknown statement" class="code unknown_statement"><a name="61"></a>					m_out_notify &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">62</td>
+        <td id="source_line_62" title="unknown statement" class="code unknown_statement"><a name="62"></a>					m_out &lt;= to_integer(msg_signal.data);</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">63</td>
+        <td id="source_line_63" title="unknown statement" class="code unknown_statement"><a name="63"></a>					b_in_notify &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">64</td>
+        <td id="source_line_64" title="" class="code none"><a name="64"></a>				end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">65</td>
+        <td id="source_line_65" title="" class="code none"><a name="65"></a>			 end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">66</td>
+        <td id="source_line_66" title="" class="code none"><a name="66"></a>			</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">67</td>
+        <td id="source_line_67" title="" class="code none"><a name="67"></a>		 end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">68</td>
+        <td id="source_line_68" title="unknown branch" class="code unknown_branch"><a name="68"></a>		 if section = frame_start then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">69</td>
+        <td id="source_line_69" title="unknown branch" class="code unknown_branch"><a name="69"></a>			 if(cnt_signal /= 1) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">70</td>
+        <td id="source_line_70" title="unknown statement" class="code unknown_statement"><a name="70"></a>				cnt_signal &lt;= cnt_signal-1;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">71</td>
+        <td id="source_line_71" title="unknown statement" class="code unknown_statement"><a name="71"></a>				m_out &lt;= cnt_signal-1;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">72</td>
+        <td id="source_line_72" title="unknown statement" class="code unknown_statement"><a name="72"></a>				m_out_notify &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">73</td>
+        <td id="source_line_73" title="unknown branch" class="code unknown_branch"><a name="73"></a>			 else</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">74</td>
+        <td id="source_line_74" title="unknown statement" class="code unknown_statement"><a name="74"></a>				cnt_signal &lt;= 15;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">75</td>
+        <td id="source_line_75" title="unknown statement" class="code unknown_statement"><a name="75"></a>				section &lt;= frame_data;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">76</td>
+        <td id="source_line_76" title="unknown statement" class="code unknown_statement"><a name="76"></a>				b_in_notify &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">77</td>
+        <td id="source_line_77" title="unknown statement" class="code unknown_statement"><a name="77"></a>				m_out_notify &lt;= false;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">78</td>
+        <td id="source_line_78" title="" class="code none"><a name="78"></a>			 end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">79</td>
+        <td id="source_line_79" title="" class="code none"><a name="79"></a>		 end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">80</td>
+        <td id="source_line_80" title="unknown branch" class="code unknown_branch"><a name="80"></a>		 if section = idle then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">81</td>
+        <td id="source_line_81" title="unknown statement" class="code unknown_statement"><a name="81"></a>			m_out_notify &lt;= false;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">82</td>
+        <td id="source_line_82" title="unknown branch" class="code unknown_branch"><a name="82"></a>			if(buffer_cnt = 0 and b_in_sync) then </td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">83</td>
+        <td id="source_line_83" title="unknown statement" class="code unknown_statement"><a name="83"></a>				msg_signal.status &lt;= msg_status_bit;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">84</td>
+        <td id="source_line_84" title="unknown statement" class="code unknown_statement"><a name="84"></a>				b_in_notify &lt;= false;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">85</td>
+        <td id="source_line_85" title="unknown branch" class="code unknown_branch"><a name="85"></a>			elsif(buffer_cnt = 31) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">86</td>
+        <td id="source_line_86" title="unknown branch" class="code unknown_branch"><a name="86"></a>				if(msg_signal.status = in_frame) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">87</td>
+        <td id="source_line_87" title="unknown statement" class="code unknown_statement"><a name="87"></a>					section &lt;= frame_start;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">88</td>
+        <td id="source_line_88" title="unknown statement" class="code unknown_statement"><a name="88"></a>					m_out &lt;= 3;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">89</td>
+        <td id="source_line_89" title="unknown statement" class="code unknown_statement"><a name="89"></a>					s_out &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">90</td>
+        <td id="source_line_90" title="unknown statement" class="code unknown_statement"><a name="90"></a>					cnt_signal &lt;= 3;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">91</td>
+        <td id="source_line_91" title="unknown statement" class="code unknown_statement"><a name="91"></a>					m_out_notify &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">92</td>
+        <td id="source_line_92" title="unknown branch" class="code unknown_branch"><a name="92"></a>				else</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">93</td>
+        <td id="source_line_93" title="unknown statement" class="code unknown_statement"><a name="93"></a>					b_in_notify &lt;= true;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">94</td>
+        <td id="source_line_94" title="" class="code none"><a name="94"></a>				end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">95</td>
+        <td id="source_line_95" title="" class="code none"><a name="95"></a>			end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">96</td>
+        <td id="source_line_96" title="" class="code none"><a name="96"></a>		 end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">97</td>
+        <td id="source_line_97" title="" class="code none"><a name="97"></a>		 end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">98</td>
+        <td id="source_line_98" title="" class="code none"><a name="98"></a>	 end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">99</td>
+        <td id="source_line_99" title="" class="code none"><a name="99"></a>	 end process;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">100</td>
+        <td id="source_line_100" title="" class="code none"><a name="100"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">101</td>
+        <td id="source_line_101" title="unknown branch" class="code unknown_branch"><a name="101"></a>MSG_DATA_BUFFER_PROC: process(clk)</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">102</td>
+        <td id="source_line_102" title="" class="code none"><a name="102"></a> begin</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">103</td>
+        <td id="source_line_103" title="unknown branch" class="code unknown_branch"><a name="103"></a>	 if(clk='1' and clk'event) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">104</td>
+        <td id="source_line_104" title="constrained branch" class="code constrained_branch"><a name="104"></a>		 if rst = '1' then</td>
+        <td width="2" title="constrained branch" class="constrained_branch">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">105</td>
+        <td id="source_line_105" title="constrained statement" class="code constrained_statement"><a name="105"></a>			msg_signal.data&lt;= to_signed(0,32);</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">106</td>
+        <td id="source_line_106" title="constrained statement" class="code constrained_statement"><a name="106"></a>			buffer_cnt &lt;= 0;</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">107</td>
+        <td id="source_line_107" title="unknown branch" class="code unknown_branch"><a name="107"></a>		 else </td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">108</td>
+        <td id="source_line_108" title="unknown branch" class="code unknown_branch"><a name="108"></a>			 if(buffer_cnt = 0) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">109</td>
+        <td id="source_line_109" title="" class="code none"><a name="109"></a>			     --READY FOR NEW MESSAGE?</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">110</td>
+        <td id="source_line_110" title="unknown branch" class="code unknown_branch"><a name="110"></a>			     if((section = idle and b_in_sync) or (section = frame_data and b_in_sync) ) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">111</td>
+        <td id="source_line_111" title="" class="code none"><a name="111"></a>				--START NEW MSG BUFFER</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">112</td>
+        <td id="source_line_112" title="unknown statement" class="code unknown_statement"><a name="112"></a>				msg_signal.data(0 downto 0) &lt;= data_in;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">113</td>
+        <td id="source_line_113" title="unknown statement" class="code unknown_statement"><a name="113"></a>				buffer_cnt &lt;= 1;	</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">114</td>
+        <td id="source_line_114" title="" class="code none"><a name="114"></a>			     end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">115</td>
+        <td id="source_line_115" title="unknown branch" class="code unknown_branch"><a name="115"></a>			 else</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">116</td>
+        <td id="source_line_116" title="unknown statement" class="code unknown_statement"><a name="116"></a>				msg_signal.data(0 downto 0) &lt;= data_in;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">117</td>
+        <td id="source_line_117" title="unknown statement" class="code unknown_statement"><a name="117"></a>				msg_signal.data(31 downto 1) &lt;= msg_signal.data(30 downto 0);</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">118</td>
+        <td id="source_line_118" title="" class="code none"><a name="118"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">119</td>
+        <td id="source_line_119" title="unknown statement" class="code unknown_statement"><a name="119"></a>				buffer_cnt &lt;= (buffer_cnt + 1) mod 32; </td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">120</td>
+        <td id="source_line_120" title="" class="code none"><a name="120"></a>			end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">121</td>
+        <td id="source_line_121" title="" class="code none"><a name="121"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">122</td>
+        <td id="source_line_122" title="" class="code none"><a name="122"></a>		end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">123</td>
+        <td id="source_line_123" title="" class="code none"><a name="123"></a>	 end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">124</td>
+        <td id="source_line_124" title="" class="code none"><a name="124"></a> end process;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">125</td>
+        <td id="source_line_125" title="" class="code none"><a name="125"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">126</td>
+        <td id="source_line_126" title="" class="code none"><a name="126"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">127</td>
+        <td id="source_line_127" title="unknown branch" class="code unknown_branch"><a name="127"></a>process(rst, msg_status_buffer)</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">128</td>
+        <td id="source_line_128" title="" class="code none"><a name="128"></a>	begin</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">129</td>
+        <td id="source_line_129" title="constrained branch" class="code constrained_branch"><a name="129"></a>		if(rst = '1') then	</td>
+        <td width="2" title="constrained branch" class="constrained_branch">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">130</td>
+        <td id="source_line_130" title="constrained statement" class="code constrained_statement"><a name="130"></a>			msg_status_bit &lt;= in_frame;</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">131</td>
+        <td id="source_line_131" title="unknown branch" class="code unknown_branch"><a name="131"></a>		else</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">132</td>
+        <td id="source_line_132" title="" class="code none"><a name="132"></a>			--Setting the bit combinational </td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">133</td>
+        <td id="source_line_133" title="unknown branch" class="code unknown_branch"><a name="133"></a>			if( msg_status_buffer &gt;= 4) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">134</td>
+        <td id="source_line_134" title="unknown statement" class="code unknown_statement"><a name="134"></a>				msg_status_bit &lt;= in_frame;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">135</td>
+        <td id="source_line_135" title="unknown branch" class="code unknown_branch"><a name="135"></a>			else </td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">136</td>
+        <td id="source_line_136" title="unknown statement" class="code unknown_statement"><a name="136"></a>				msg_status_bit &lt;= oof_frame;</td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">137</td>
+        <td id="source_line_137" title="" class="code none"><a name="137"></a>			end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">138</td>
+        <td id="source_line_138" title="" class="code none"><a name="138"></a>		end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">139</td>
+        <td id="source_line_139" title="" class="code none"><a name="139"></a> end process;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">140</td>
+        <td id="source_line_140" title="" class="code none"><a name="140"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">141</td>
+        <td id="source_line_141" title="unknown branch" class="code unknown_branch"><a name="141"></a> MSG_STATUS_BUFFER_PROC: process(clk)</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">142</td>
+        <td id="source_line_142" title="" class="code none"><a name="142"></a> begin</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">143</td>
+        <td id="source_line_143" title="unknown branch" class="code unknown_branch"><a name="143"></a>	if(clk='1' and clk'event) then</td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">144</td>
+        <td id="source_line_144" title="constrained branch" class="code constrained_branch"><a name="144"></a>		 if rst = '1' then</td>
+        <td width="2" title="constrained branch" class="constrained_branch">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">145</td>
+        <td id="source_line_145" title="constrained statement" class="code constrained_statement"><a name="145"></a>			msg_status_buffer &lt;= to_unsigned(15,4);</td>
+        <td width="2" title="constrained statement" class="constrained_statement">0C</td>
+      </tr>
+      <tr>
+        <td class="line_no">146</td>
+        <td id="source_line_146" title="unknown branch" class="code unknown_branch"><a name="146"></a>		 else </td>
+        <td width="2" title="unknown branch" class="unknown_branch">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">147</td>
+        <td id="source_line_147" title="" class="code none"><a name="147"></a>			--Buffering the inputs </td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">148</td>
+        <td id="source_line_148" title="unknown statement" class="code unknown_statement"><a name="148"></a>			msg_status_buffer(0 downto 0) &lt;= unsigned(data_in); </td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">149</td>
+        <td id="source_line_149" title="unknown statement" class="code unknown_statement"><a name="149"></a>			msg_status_buffer(3 downto 1) &lt;= msg_status_buffer(2 downto 0); </td>
+        <td width="2" title="unknown statement" class="unknown_statement">U0</td>
+      </tr>
+      <tr>
+        <td class="line_no">150</td>
+        <td id="source_line_150" title="" class="code none"><a name="150"></a>				</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">151</td>
+        <td id="source_line_151" title="" class="code none"><a name="151"></a>		end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">152</td>
+        <td id="source_line_152" title="" class="code none"><a name="152"></a>	end if;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">153</td>
+        <td id="source_line_153" title="" class="code none"><a name="153"></a> end process;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">154</td>
+        <td id="source_line_154" title="" class="code none"><a name="154"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">155</td>
+        <td id="source_line_155" title="" class="code none"><a name="155"></a></td>
+        <td width="2" class="line_no"></td>
+      </tr>
+      <tr>
+        <td class="line_no">156</td>
+        <td id="source_line_156" title="" class="code none"><a name="156"></a>end Example_arch;</td>
+        <td width="2" class="line_no"></td>
+      </tr>
+              </table>
+   </tr>
+  </table>
+  </div>
+  </div>
+  <div id="footer">
+      <div align="center"><img src="images/wave_end.png" /></div>
+  </div>
+  </body>
+ </html>
