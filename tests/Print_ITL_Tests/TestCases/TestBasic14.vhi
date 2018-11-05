@@ -66,7 +66,7 @@ assume:
 prove:
 	 at t_end: SECTION_B_1;
 	 at t_end: b_out_sig_mode = b_in_sig_mode_at_t;
-	 at t_end: b_out_sig_x = (1 + b_in_sig_x_at_t);
+	 at t_end: b_out_sig_x = (1 + b_in_sig_x_at_t)(31 downto 0);
 	 at t_end: b_out_sig_y = false;
 	 during[t+1, t_end]: b_in_notify = false;
 	 during[t+1, t_end-1]: b_out_notify = false;

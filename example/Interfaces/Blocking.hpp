@@ -13,6 +13,12 @@ Blocking<T>::Blocking(const char *name) : sc_prim_channel(name) {
 
 template<typename T>
 void Blocking<T>::read(T &out) {
+    // This catches the case that the counterpart didn't get execution priorities, yet
+    if(reader_ready){
+        wait(SC_ZERO_TIME);
+    }
+    //Reader has to read and set writer_ready to false
+    SC_ASSERT_(!reader_ready,"Handshaking is wrong");
     reader_ready = true;
     if (!writer_ready) {
 #ifdef VERBOSE
@@ -24,20 +30,24 @@ void Blocking<T>::read(T &out) {
 #ifdef VERBOSE
     std::cout << writer->name() << "->read(): notify" << std::endl;
 #endif
-
-    reader_notify.notify();
     out = shared_value;
+    reader_notify.notify();
 }
 
 template<typename T>
 void Blocking<T>::write(const T &val) {
+    // This catches the case that the counterpart didn't get execution priorities, yet
+    if(writer_ready){
+        wait(SC_ZERO_TIME);
+    }
+    //Reader has to read and set writer_ready to false
+    SC_ASSERT_(!writer_ready,"Handshaking is wrong");
     writer_ready = true;
     shared_value = val;
     if (!reader_ready) {
 #ifdef VERBOSE
         std::cout << writer->name() << "->write(): waiting for " << reader->name() << "->read()" << std::endl;
 #endif
-
         wait(reader_notify);
     }
 #ifdef VERBOSE
@@ -75,6 +85,7 @@ void Blocking<T>::register_port(sc_port_base &port, const char *if_typename) {
 
 template<typename T>
 bool Blocking<T>::nb_read(T &out) {
+    assert(!reader_ready);
     //Offer communication
     reader_ready = true;
     wait(SC_ZERO_TIME);
@@ -100,6 +111,7 @@ bool Blocking<T>::nb_read(T &out) {
 
 template<typename T>
 bool Blocking<T>::nb_write(const T &val) {
+    assert(!writer_ready);
     //Offer communication
     writer_ready = true;
     wait(SC_ZERO_TIME);

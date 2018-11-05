@@ -23,8 +23,8 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: SECTION_A_0;
-	 at t: s_out_sig = 1337;
-	 at t: val = 1337;
+	 at t: s_out_sig = resize(1337,32);
+	 at t: val = resize(1337,32);
 end property;
 
 

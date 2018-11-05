@@ -7,5 +7,6 @@
 
 #include "ModulesBasic.h"
 #include "ModulesMasterSlave.h"
+#include "ModuleFunctions.h"
 
 #endif //PROJECT_TESTS_H

@@ -30,7 +30,7 @@ assume:
 prove:
 	 at t: SECTION_A_0;
 	 at t: b_out_sig_mode = READ;
-	 at t: b_out_sig_x = 0;
+	 at t: b_out_sig_x = resize(0,32);
 	 at t: b_out_sig_y = false;
 	 at t: b_out_notify = true;
 end property;

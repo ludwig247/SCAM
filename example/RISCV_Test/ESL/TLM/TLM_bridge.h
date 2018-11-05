@@ -21,7 +21,7 @@ public:
     tlm::tlm_initiator_socket<> bridgeSocket;
 
     //Ports
-    blocking_in<CPtoME_IF> COtoBR_port;  // read_instruction/load/store
+    blocking_in<CUtoME_IF> COtoBR_port;  // read_instruction/load/store
     blocking_out<MEtoCP_IF> BRtoCO_port;    // store/load done
 
     // Dummy method:
@@ -52,7 +52,7 @@ public:
     }
 
     // SCAM interface data
-    CPtoME_IF COtoBR_data;
+    CUtoME_IF COtoBR_data;
     MEtoCP_IF BRtoCO_data;
 
     // TLM interface data

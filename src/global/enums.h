@@ -20,6 +20,7 @@ namespace  SCAM{
 	enum PROCESS_TYPE {
 		NONE, THREAD, CTHREAD, METHOD
 	};
+
 	enum buildInType{unknown,integer,boolean,structType};
 
 	inline std::string buildInTypeToString(buildInType type){

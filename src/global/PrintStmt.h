@@ -39,7 +39,6 @@ namespace SCAM {
         virtual void visit(SectionOperand &node);
         virtual void visit(SectionValue &node);
         virtual void visit(ITE &node);
-        virtual void visit(Branch &node);
         virtual void visit(Arithmetic &node);
         virtual void visit(Logical &node);
         virtual void visit(Relational &node);
@@ -57,15 +56,13 @@ namespace SCAM {
         virtual void visit(ParamOperand &node);
         virtual void visit(Return &node);
 
-
-
     protected:
 
         std::string createString(Stmt *stmt, unsigned int indentSize, unsigned int indentOffset);
         std::stringstream ss;
         unsigned int indent;
         unsigned int indentSize;
-
+        bool useParenthesesFlag = true;
     };
 
 }

@@ -12,41 +12,38 @@
 #include <PluginAction.h>
 #include <ModelGlobal.h>
 #include <fstream>
-#include <PrintITL.h>
 #include <PrintAML/PrintAML.h>
+#include <PrintITL/PrintITL.h>
 
 
+static std::vector<SCAM::Module *> parameter() {
 
-static std::vector<SCAM::Module*> parameter(){
+    std::vector<const char *> commandLineArugmentsVector;
 
-        std::vector<const char *> commandLineArugmentsVector;
+    //Binaray
+    std::string bin = std::string(SCAM_HOME"/bin/SCAM ");
+    commandLineArugmentsVector.push_back(bin.c_str());
 
-        //Binaray
-        std::string bin = std::string(SCAM_HOME"/bin/SCAM ");
-        commandLineArugmentsVector.push_back(bin.c_str());
+    //SRC-File to be analyzed
+    std::string file_path = std::string(SCAM_HOME"/tests/Print_ITL_Tests/TestCases/Tests.h");
+    commandLineArugmentsVector.push_back(file_path.c_str());
 
-        //SRC-File to be analyzed
-        std::string file_path = std::string(SCAM_HOME"/tests/Print_ITL_Tests/TestCases/Tests.h");
-//        std::string file_path = std::string("/home/tobias/SCAM/tests/Print_ITL_Tests/TestCases/Tests.h");
-        commandLineArugmentsVector.push_back(file_path.c_str());
-
-        //Creates an instance of ModelFactory and calls ModelFactory::HandleTranslationUnit
-        const char *commandLineArgumentsArray[commandLineArugmentsVector.size()];
-        for (int i = 0; i < commandLineArugmentsVector.size(); i++) {
-            commandLineArgumentsArray[i] = commandLineArugmentsVector.at(i);
-        }
-
-        SCAM::ModelGlobal::createModel(commandLineArugmentsVector.size(),commandLineArgumentsArray);
+    //Creates an instance of ModelFactory and calls ModelFactory::HandleTranslationUnit
+    const char *commandLineArgumentsArray[commandLineArugmentsVector.size()];
+    for (int i = 0; i < commandLineArugmentsVector.size(); i++) {
+        commandLineArgumentsArray[i] = commandLineArugmentsVector.at(i);
+    }
+    SCAM::ModelGlobal::createModel(commandLineArugmentsVector.size(), commandLineArgumentsArray[0],commandLineArgumentsArray[1]);
 
 
-    std::vector<SCAM::Module*> result;
+    std::vector<SCAM::Module *> result;
     for (auto module: SCAM::ModelGlobal::getModel()->getModules()) {
         result.push_back(module.second);
     }
     return result;
 }
 
-class PrintITL_Test : public ::testing::TestWithParam<SCAM::Module*> {
+class PrintITL_Test : public ::testing::TestWithParam<SCAM::Module *> {
 public:
 
     static void SetUpTestCase() {
@@ -66,28 +63,30 @@ public:
 INSTANTIATE_TEST_CASE_P(Basic, PrintITL_Test, ::testing::ValuesIn(parameter()));
 
 TEST_P(PrintITL_Test, Basic) {
-    
-        ASSERT_NE(GetParam(), nullptr) << "Module not found";
-        std::cout << "Instance: " << GetParam()->getName() << std::endl;
-        std::ifstream ifs(SCAM_HOME"/tests/Print_ITL_Tests/TestCases/" + GetParam()->getName() + ".vhi");
-        ASSERT_TRUE(bool(ifs)) << "Can't open file";
 
-        std::stringstream buffer;
-        std::string content((std::istreambuf_iterator<char>(ifs)),
-                            (std::istreambuf_iterator<char>()));
+    PrintITL printITL;
+//    SCAM::Module * module = GetParam();
+    printITL.printModule(GetParam());
+    ASSERT_NO_THROW(printITL.print());
+    std::ofstream myfile;
+    myfile.open(SCAM_HOME"/tests/Print_ITL_Tests/unsorted/" + GetParam()->getName() + ".vhi");
+    myfile << printITL.print();
+    myfile.close();
 
-        SCAM::PrintITL printITL(GetParam());
-        ASSERT_NO_THROW(printITL.print());
-        std::ofstream myfile;
-        myfile.open (SCAM_HOME"/tests/Print_ITL_Tests/unsorted/" + GetParam()->getName() + ".vhi");
-        myfile << printITL.print();
-        myfile.close();
-        ASSERT_EQ(content, printITL.print()) << "Test for module " << GetParam()->getName() << " failed\n\n" << printITL.print();
-        std::cout << "" << std::endl;
+
+    ASSERT_NE(GetParam(), nullptr) << "Module not found";
+    std::cout << "Instance: " << GetParam()->getName() << std::endl;
+    std::ifstream ifs(SCAM_HOME"/tests/Print_ITL_Tests/TestCases/" + GetParam()->getName() + ".vhi");
+    ASSERT_TRUE(bool(ifs)) << "Can't open file";
+
+    std::stringstream buffer;
+    std::string content((std::istreambuf_iterator<char>(ifs)),
+                        (std::istreambuf_iterator<char>()));
+
+    ASSERT_EQ(content, printITL.print()) << "Test for module " << GetParam()->getName() << " failed\n\n" << printITL.print();
+    std::cout << "" << std::endl;
+
 }
-
-
-
 
 
 #endif //PROJECT_PRINTITL_TEST_H

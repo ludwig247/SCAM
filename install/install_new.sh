@@ -10,6 +10,15 @@ echo -e "\e[30;48;5;82mUnpacking files\e[0m"
 cd $SCAM_HOME/install/tmp;
 mkdir build
 
+#INSTALLING Z3
+echo -e "\e[30;48;5;82mInstalling Z3\e[0m";
+(cd $SCAM_HOME/install/tmp/z3 &&
+ $PYTHON3 scripts/mk_make.py --prefix $SCAM_HOME/install/tmp/files/z3 &&
+cd build &&
+make -w -j4 &&
+make install &&
+echo -e "\e[30;48;5;82mInstalled Z3\e[0m" ) || (echo -e "\e[41mError installing z3\e[0m" && exit 1) ;
+
 #INSTALLING GTEST
 echo -e "\e[30;48;5;82mInstalling GTest\e[0m";
 (cd $SCAM_HOME/install/tmp/build/ &&
@@ -30,14 +39,7 @@ cd ../ &&
 rm -r ./build/* &&
 echo -e "\e[30;48;5;82mInstalled SystemC!\e[0m") || (echo -e "\e[41mError installing SystemC \e[0m" && exit 1) ;
 
-#INSTALLING Z3
-echo -e "\e[30;48;5;82mInstalling Z3\e[0m";
-(cd $SCAM_HOME/install/tmp/z3 &&
- $PYTHON3 scripts/mk_make.py --prefix $SCAM_HOME/install/tmp/files/z3 &&
-cd build &&
-make -w -j4 &&
-make install &&
-echo -e "\e[30;48;5;82mInstalled Z3\e[0m" ) || (echo -e "\e[41mError installing z3\e[0m" && exit 1) ;
+
 
 #INSTALLING LLVM/CLANG
 echo -e "\e[30;48;5;82mInstalling LLVM/CLANG\e[0m";

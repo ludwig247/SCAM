@@ -9,8 +9,8 @@
 #include "systemc.h"
 #include "Interfaces.h"
 #include "../../RISCV_commons/Memory_Interfaces.h"
-#include "./../RISCV_commons/Utilities.h"
-#include "./../RISCV_commons/Defines.h"
+#include "../../RISCV_commons/Utilities.h"
+#include "../../RISCV_commons/Defines.h"
 
 
 class Memory : public sc_module {
@@ -29,10 +29,10 @@ public:
     }
 
     //Ports
-    blocking_in<CPtoME_IF> COtoME_port; // read_instruction/load/store
+    blocking_in<CUtoME_IF> COtoME_port; // read_instruction/load/store
     blocking_out<MEtoCP_IF> MEtoCO_port; // store/load done
 
-    CPtoME_IF COtoME_data;
+    CUtoME_IF COtoME_data;
     MEtoCP_IF MEtoCO_data;
 
     ofstream *log_file; // log file
@@ -116,6 +116,7 @@ void Memory::initialize(ifstream &hex_file) {
 void Memory::run() {
 
     while (true) {
+
         COtoME_port->read(COtoME_data); //Wait for next request
 
         MEtoCO_data.loadedData = 0;
@@ -126,7 +127,7 @@ void Memory::run() {
             wait(SC_ZERO_TIME);
         }
 
-#ifndef LOGTOFILE
+#ifdef LOGTOFILE
         // log file sanity check
         if (log_file->tellp() > 2000000) {       // 2 MB
             cout << "@ME: Log file too big (2 MB) - probably an infinite loop in assembly! Terminating..." << endl;
@@ -134,126 +135,114 @@ void Memory::run() {
         }
 #endif
 
-        if (COtoME_data.req != ME_X) {
+        if (COtoME_data.req == ME_RD) { // LOAD
 
-            if (COtoME_data.req == ME_RD) { // LOAD
+            // Little endian: Least significant byte in the smallest address...
+            if (COtoME_data.mask == MT_W) {
 
-                // Little endian: Least significant byte in the smallest address...
-                if (COtoME_data.mask != MT_X) {
+                // read 32 bits
+                MEtoCO_data.loadedData = mem[COtoME_data.addrIn]
+                                         + ((mem[COtoME_data.addrIn + 1]) << 8)
+                                         + ((mem[COtoME_data.addrIn + 2]) << 16)
+                                         + ((mem[COtoME_data.addrIn + 3]) << 24);
 
-                    if (COtoME_data.mask == MT_W) {
+            } else if (COtoME_data.mask == MT_H) {
 
-                        // read 32 bits
-                        MEtoCO_data.loadedData = mem[COtoME_data.addrIn]
-                                                 + ((mem[COtoME_data.addrIn + 1]) << 8)
-                                                 + ((mem[COtoME_data.addrIn + 2]) << 16)
-                                                 + ((mem[COtoME_data.addrIn + 3]) << 24);
+                // read 16 bits
+                MEtoCO_data.loadedData = mem[COtoME_data.addrIn]
+                                         + ((mem[COtoME_data.addrIn + 1]) << 8);
 
-                    } else if (COtoME_data.mask == MT_H) {
-
-                        // read 16 bits
-                        MEtoCO_data.loadedData = mem[COtoME_data.addrIn]
-                                                 + ((mem[COtoME_data.addrIn + 1]) << 8);
-
-                        // sign extend
-                        if (Sub(MEtoCO_data.loadedData, 15, 15) == 1) {
-                            MEtoCO_data.loadedData = Cat(Fill(16), 16, MEtoCO_data.loadedData, 16);
-                        }
-
-                    } else if (COtoME_data.mask == MT_B) {
-
-                        // read 8 bits
-                        MEtoCO_data.loadedData = mem[COtoME_data.addrIn];
-
-                        // sign extend
-                        if (Sub(MEtoCO_data.loadedData, 7, 7) == 1) {
-                            MEtoCO_data.loadedData = Cat(Fill(24), 24, MEtoCO_data.loadedData, 8);
-                        }
-
-                    } else if (COtoME_data.mask == MT_HU) {
-
-                        // read 16 bits, zero extend implicit
-                        MEtoCO_data.loadedData = mem[COtoME_data.addrIn]
-                                                 + ((mem[COtoME_data.addrIn + 1]) << 8);
-
-                    } else if (COtoME_data.mask == MT_BU) {
-
-                        // read 8 bits, zero extend implicit
-                        MEtoCO_data.loadedData = mem[COtoME_data.addrIn];
-
-                    } else {
-
-                        throw std::logic_error(std::string("S1/S4: @IM/@DM: Load mask not defined!"));
-                    }
-
-#if !defined(LOGTOFILE)
-                    // has to be adjusted according to the address of the last instruction
-                    if (COtoME_data.addrIn < 0x100) {
-                        cout
-                                << ".~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FETCHING NEW INST~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~."
-                                << endl;
-
-                        cout << "S1: @IM: Load from location 0x" << hex << COtoME_data.addrIn << endl;
-
-                        cout << "S1: @IM: Loaded inst 0x" << hex << MEtoCO_data.loadedData << " = "
-                             << dec << MEtoCO_data.loadedData << "(dec)" << endl;
-                    } else {
-                        cout << "S4: @DM: Load from location 0x" << hex << COtoME_data.addrIn << endl;
-
-                        cout << "S4: @DM: Loaded data 0x" << hex << MEtoCO_data.loadedData << " = "
-                             << dec << MEtoCO_data.loadedData << "(dec)" << endl;
-                        //log();
-                    }
-#endif
+                // sign extend
+                if (Sub(MEtoCO_data.loadedData, 15, 15) == 1) {
+                    MEtoCO_data.loadedData = Cat(Fill(16), 16, MEtoCO_data.loadedData, 16);
                 }
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-            } else if (COtoME_data.req == ME_WR) {
 
-                if (COtoME_data.mask != MT_X) {
+            } else if (COtoME_data.mask == MT_B) {
 
-                    // Little endian: Least significant byte in the smallest address...
-                    if (COtoME_data.mask == MT_W) {
+                // read 8 bits
+                MEtoCO_data.loadedData = mem[COtoME_data.addrIn];
 
-                        // store 32 bits
-                        mem[COtoME_data.addrIn] = COtoME_data.dataIn & 0xFF;
-                        mem[COtoME_data.addrIn + 1] = (COtoME_data.dataIn >> 8) & 0xFF;
-                        mem[COtoME_data.addrIn + 2] = (COtoME_data.dataIn >> 16) & 0xFF;
-                        mem[COtoME_data.addrIn + 3] = (COtoME_data.dataIn >> 24) & 0xFF;
-
-                    } else if (COtoME_data.mask == MT_H) {
-
-                        // store 16 bits
-                        mem[COtoME_data.addrIn] = COtoME_data.dataIn & 0xFF;
-                        mem[COtoME_data.addrIn + 1] = (COtoME_data.dataIn >> 8) & 0xFF;
-
-                    } else if (COtoME_data.mask == MT_B) {
-
-                        // store 8 bits
-                        mem[COtoME_data.addrIn] = COtoME_data.dataIn & 0xFF;
-
-                    } else if (COtoME_data.mask == MT_BU || COtoME_data.mask == MT_HU){
-
-                        throw std::logic_error(std::string("S4: @DM: Store mask illegal!"));
-
-                    } else {
-
-                        throw std::logic_error(std::string("S4: @DM: Store mask not defined!"));
-                    }
-
-                    MEtoCO_data.loadedData = 1;
-
-#if !defined(LOGTOFILE)
-                    cout << "S4: @DM: Store at location 0x" << hex << COtoME_data.addrIn << endl;
-                    cout << "S4: @DM: Stored data 0x" << hex << COtoME_data.dataIn << " = "
-                         << dec << COtoME_data.dataIn << "(dec)" << endl;
-                    //log();
-#endif
+                // sign extend
+                if (Sub(MEtoCO_data.loadedData, 7, 7) == 1) {
+                    MEtoCO_data.loadedData = Cat(Fill(24), 24, MEtoCO_data.loadedData, 8);
                 }
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            } else if (COtoME_data.mask == MT_HU) {
+
+                // read 16 bits, zero extend implicit
+                MEtoCO_data.loadedData = mem[COtoME_data.addrIn]
+                                         + ((mem[COtoME_data.addrIn + 1]) << 8);
+
+            } else if (COtoME_data.mask == MT_BU) {
+
+                // read 8 bits, zero extend implicit
+                MEtoCO_data.loadedData = mem[COtoME_data.addrIn];
+
             } else {
 
-                throw std::logic_error(std::string("@ME: Undefined memory's req value"));
+                throw std::logic_error(std::string("S1/S4: @IM/@DM: Load mask not defined!"));
             }
+
+#ifdef LOGTOFILE
+            // has to be adjusted according to the address of the last instruction
+            if (COtoME_data.addrIn < 0x100) {
+                cout << ".~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FETCHING NEW INST~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~." << endl;
+
+                cout << "S1: @IM: Load from location 0x" << hex << COtoME_data.addrIn << endl;
+
+                cout << "S1: @IM: Loaded inst 0x" << hex << MEtoCO_data.loadedData << " = " << dec << MEtoCO_data.loadedData << "(dec)";
+            } else {
+                cout << "S4: @DM: Load from location 0x" << hex << COtoME_data.addrIn << endl;
+
+                cout << "S4: @DM: Loaded data 0x" << hex << MEtoCO_data.loadedData << " = " << dec << MEtoCO_data.loadedData << "(dec)" << endl;
+                //log();
+            }
+#endif
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        } else if (COtoME_data.req == ME_WR) {
+
+            // Little endian: Least significant byte in the smallest address...
+            if (COtoME_data.mask == MT_W) {
+
+                // store 32 bits
+                mem[COtoME_data.addrIn] = COtoME_data.dataIn & 0xFF;
+                mem[COtoME_data.addrIn + 1] = (COtoME_data.dataIn >> 8) & 0xFF;
+                mem[COtoME_data.addrIn + 2] = (COtoME_data.dataIn >> 16) & 0xFF;
+                mem[COtoME_data.addrIn + 3] = (COtoME_data.dataIn >> 24) & 0xFF;
+
+            } else if (COtoME_data.mask == MT_H) {
+
+                // store 16 bits
+                mem[COtoME_data.addrIn] = COtoME_data.dataIn & 0xFF;
+                mem[COtoME_data.addrIn + 1] = (COtoME_data.dataIn >> 8) & 0xFF;
+
+            } else if (COtoME_data.mask == MT_B) {
+
+                // store 8 bits
+                mem[COtoME_data.addrIn] = COtoME_data.dataIn & 0xFF;
+
+            } else if (COtoME_data.mask == MT_BU || COtoME_data.mask == MT_HU){
+
+                throw std::logic_error(std::string("S4: @DM: Store mask illegal!"));
+
+            } else {
+
+                throw std::logic_error(std::string("S4: @DM: Store mask not defined!"));
+            }
+
+            MEtoCO_data.loadedData = 1;
+
+#ifdef LOGTOFILE
+            cout << "S4: @DM: Store at location 0x" << hex << COtoME_data.addrIn << endl;
+            cout << "S4: @DM: Stored data 0x" << hex << COtoME_data.dataIn << " = " << dec << COtoME_data.dataIn << "(dec)" << endl;
+            //log();
+#endif
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        } else {
+
+            // throw std::logic_error(std::string("@ME: Undefined memory's req value"));
         }
 
         MEtoCO_port->write(MEtoCO_data);

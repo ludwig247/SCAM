@@ -16,10 +16,10 @@ constraint no_reset := rst = '0'; end constraint;
 
 -- FUNCTIONS --
 macro foo(x: int) : int := 
-	if(((x + 1)(31 downto 0) > 5)) then (shift_left((x + resize(1,32))(31 downto 0),1))
-	elsif(not(((x + 1)(31 downto 0) > 5)) and ((x + 1)(31 downto 0) > 20)) then ((x + 1)(31 downto 0) + 2)(31 downto 0)
-	elsif(not(((x + 1)(31 downto 0) > 5)) and not(((x + 1)(31 downto 0) > 20)) and ((x + 1)(31 downto 0) = 20)) then (x + 1)(31 downto 0)
-	elsif(not(((x + 1)(31 downto 0) > 5)) and not(((x + 1)(31 downto 0) > 20)) and not(((x + 1)(31 downto 0) = 20))) then 0
+	if (((x + resize(1,32))(31 downto 0) > resize(5,32))) then int((shift_left((x + resize(1,32))(31 downto 0),resize(1,32))))
+	elsif (not(((x + resize(1,32))(31 downto 0) > resize(5,32))) and ((x + resize(1,32))(31 downto 0) > resize(20,32))) then int(((x + resize(1,32))(31 downto 0) + resize(2,32))(31 downto 0))
+	elsif (not(((x + resize(1,32))(31 downto 0) > resize(5,32))) and not(((x + resize(1,32))(31 downto 0) > resize(20,32))) and ((x + resize(1,32))(31 downto 0) = resize(20,32))) then int((x + resize(1,32))(31 downto 0))
+	else int(resize(0,32))
 end if;
 end macro; 
 
@@ -40,7 +40,7 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: run_0;
-	 at t: y = 0;
+	 at t: y = resize(0,32);
 	 at t: b_in_notify = true;
 	 at t: b_out_notify = false;
 end property;
@@ -54,8 +54,8 @@ freeze:
 	b_in_sig_at_t = b_in_sig@t;
 assume: 
 	 at t: run_0;
-	 at t: not((15 > unsigned(foo(b_in_sig))));
-	 at t: not((unsigned(foo(b_in_sig)) > 0));
+	 at t: not((resize(15,32) > unsigned(foo(b_in_sig))));
+	 at t: not((unsigned(foo(b_in_sig)) > resize(0,32)));
 	 at t: not(((unsigned(b_in_sig) > unsigned(foo(b_in_sig))) or (unsigned(foo(b_in_sig)) > unsigned(b_in_sig))));
 	 at t: b_in_sync;
 prove:
@@ -73,9 +73,9 @@ for timepoints:
 	 t_end = t+1;
 assume: 
 	 at t: run_0;
-	 at t: (15 > unsigned(foo(b_in_sig)));
-	 at t: not((unsigned(foo(b_in_sig)) > 0));
-	 at t: not(((unsigned(b_in_sig) > 0) or (0 > unsigned(b_in_sig))));
+	 at t: (resize(15,32) > unsigned(foo(b_in_sig)));
+	 at t: not((unsigned(foo(b_in_sig)) > resize(0,32)));
+	 at t: not(((unsigned(b_in_sig) > resize(0,32)) or (resize(0,32) > unsigned(b_in_sig))));
 	 at t: b_in_sync;
 prove:
 	 at t_end: run_1;
@@ -92,9 +92,9 @@ for timepoints:
 	 t_end = t+1;
 assume: 
 	 at t: run_0;
-	 at t: not((15 > unsigned(foo(b_in_sig))));
-	 at t: (unsigned(foo(b_in_sig)) > 0);
-	 at t: not(((unsigned(b_in_sig) > 1) or (1 > unsigned(b_in_sig))));
+	 at t: not((resize(15,32) > unsigned(foo(b_in_sig))));
+	 at t: (unsigned(foo(b_in_sig)) > resize(0,32));
+	 at t: not(((unsigned(b_in_sig) > resize(1,32)) or (resize(1,32) > unsigned(b_in_sig))));
 	 at t: b_in_sync;
 prove:
 	 at t_end: run_1;
@@ -111,8 +111,8 @@ for timepoints:
 	 t_end = t+1;
 assume: 
 	 at t: run_0;
-	 at t: not((15 > unsigned(foo(b_in_sig))));
-	 at t: not((unsigned(foo(b_in_sig)) > 0));
+	 at t: not((resize(15,32) > unsigned(foo(b_in_sig))));
+	 at t: not((unsigned(foo(b_in_sig)) > resize(0,32)));
 	 at t: ((unsigned(b_in_sig) > unsigned(foo(b_in_sig))) or (unsigned(foo(b_in_sig)) > unsigned(b_in_sig)));
 	 at t: b_in_sync;
 prove:
@@ -130,9 +130,9 @@ for timepoints:
 	 t_end = t+1;
 assume: 
 	 at t: run_0;
-	 at t: (15 > unsigned(foo(b_in_sig)));
-	 at t: (unsigned(foo(b_in_sig)) > 0);
-	 at t: not(((unsigned(b_in_sig) > 1) or (1 > unsigned(b_in_sig))));
+	 at t: (resize(15,32) > unsigned(foo(b_in_sig)));
+	 at t: (unsigned(foo(b_in_sig)) > resize(0,32));
+	 at t: not(((unsigned(b_in_sig) > resize(1,32)) or (resize(1,32) > unsigned(b_in_sig))));
 	 at t: b_in_sync;
 prove:
 	 at t_end: run_1;
@@ -149,9 +149,9 @@ for timepoints:
 	 t_end = t+1;
 assume: 
 	 at t: run_0;
-	 at t: (15 > unsigned(foo(b_in_sig)));
-	 at t: not((unsigned(foo(b_in_sig)) > 0));
-	 at t: ((unsigned(b_in_sig) > 0) or (0 > unsigned(b_in_sig)));
+	 at t: (resize(15,32) > unsigned(foo(b_in_sig)));
+	 at t: not((unsigned(foo(b_in_sig)) > resize(0,32)));
+	 at t: ((unsigned(b_in_sig) > resize(0,32)) or (resize(0,32) > unsigned(b_in_sig)));
 	 at t: b_in_sync;
 prove:
 	 at t_end: run_1;
@@ -168,9 +168,9 @@ for timepoints:
 	 t_end = t+1;
 assume: 
 	 at t: run_0;
-	 at t: not((15 > unsigned(foo(b_in_sig))));
-	 at t: (unsigned(foo(b_in_sig)) > 0);
-	 at t: ((unsigned(b_in_sig) > 1) or (1 > unsigned(b_in_sig)));
+	 at t: not((resize(15,32) > unsigned(foo(b_in_sig))));
+	 at t: (unsigned(foo(b_in_sig)) > resize(0,32));
+	 at t: ((unsigned(b_in_sig) > resize(1,32)) or (resize(1,32) > unsigned(b_in_sig)));
 	 at t: b_in_sync;
 prove:
 	 at t_end: run_1;
@@ -187,9 +187,9 @@ for timepoints:
 	 t_end = t+1;
 assume: 
 	 at t: run_0;
-	 at t: (15 > unsigned(foo(b_in_sig)));
-	 at t: (unsigned(foo(b_in_sig)) > 0);
-	 at t: ((unsigned(b_in_sig) > 1) or (1 > unsigned(b_in_sig)));
+	 at t: (resize(15,32) > unsigned(foo(b_in_sig)));
+	 at t: (unsigned(foo(b_in_sig)) > resize(0,32));
+	 at t: ((unsigned(b_in_sig) > resize(1,32)) or (resize(1,32) > unsigned(b_in_sig)));
 	 at t: b_in_sync;
 prove:
 	 at t_end: run_1;

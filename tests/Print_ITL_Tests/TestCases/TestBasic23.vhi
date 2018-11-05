@@ -36,9 +36,9 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: SECTION_A_0;
-	 at t: b_out_sig = 3;
-	 at t: val_signed = 7;
-	 at t: val_unsigned = 13;
+	 at t: b_out_sig = resize(3,32);
+	 at t: val_signed = resize(-7,32);
+	 at t: val_unsigned = resize(13,32);
 	 at t: b_out_notify = true;
 	 at t: b_out2_notify = false;
 end property;
@@ -113,11 +113,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: not(((val_unsigned mod 2)(31 downto 0) = 0));
-	 at t: not(((val_unsigned and 2) = 0));
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: not(((shift_right(val_unsigned,2)) = 0));
-	 at t: not(((shift_left(val_unsigned,2)) = 0));
+	 at t: not(((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32)));
+	 at t: not(((val_unsigned and resize(2,32)) = resize(0,32)));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_unsigned,resize(2,32))) = resize(0,32)));
+	 at t: not(((shift_left(val_unsigned,resize(2,32))) = resize(0,32)));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -138,11 +138,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: ((val_unsigned mod 2)(31 downto 0) = 0);
-	 at t: not(((val_unsigned and 2) = 0));
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: not(((shift_right(val_unsigned,2)) = 0));
-	 at t: not(((shift_left(val_unsigned,2)) = 0));
+	 at t: ((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: not(((val_unsigned and resize(2,32)) = resize(0,32)));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_unsigned,resize(2,32))) = resize(0,32)));
+	 at t: not(((shift_left(val_unsigned,resize(2,32))) = resize(0,32)));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -163,11 +163,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: not(((val_unsigned mod 2)(31 downto 0) = 0));
-	 at t: ((val_unsigned and 2) = 0);
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: not(((shift_right(val_unsigned,2)) = 0));
-	 at t: not(((shift_left(val_unsigned,2)) = 0));
+	 at t: not(((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32)));
+	 at t: ((val_unsigned and resize(2,32)) = resize(0,32));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_unsigned,resize(2,32))) = resize(0,32)));
+	 at t: not(((shift_left(val_unsigned,resize(2,32))) = resize(0,32)));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -188,11 +188,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: not(((val_unsigned mod 2)(31 downto 0) = 0));
-	 at t: not(((val_unsigned and 2) = 0));
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: ((shift_right(val_unsigned,2)) = 0);
-	 at t: not(((shift_left(val_unsigned,2)) = 0));
+	 at t: not(((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32)));
+	 at t: not(((val_unsigned and resize(2,32)) = resize(0,32)));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: ((shift_right(val_unsigned,resize(2,32))) = resize(0,32));
+	 at t: not(((shift_left(val_unsigned,resize(2,32))) = resize(0,32)));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -213,11 +213,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: ((val_unsigned mod 2)(31 downto 0) = 0);
-	 at t: ((val_unsigned and 2) = 0);
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: not(((shift_right(val_unsigned,2)) = 0));
-	 at t: not(((shift_left(val_unsigned,2)) = 0));
+	 at t: ((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: ((val_unsigned and resize(2,32)) = resize(0,32));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_unsigned,resize(2,32))) = resize(0,32)));
+	 at t: not(((shift_left(val_unsigned,resize(2,32))) = resize(0,32)));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -238,11 +238,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: ((val_unsigned mod 2)(31 downto 0) = 0);
-	 at t: not(((val_unsigned and 2) = 0));
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: ((shift_right(val_unsigned,2)) = 0);
-	 at t: not(((shift_left(val_unsigned,2)) = 0));
+	 at t: ((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: not(((val_unsigned and resize(2,32)) = resize(0,32)));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: ((shift_right(val_unsigned,resize(2,32))) = resize(0,32));
+	 at t: not(((shift_left(val_unsigned,resize(2,32))) = resize(0,32)));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -263,11 +263,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: not(((val_unsigned mod 2)(31 downto 0) = 0));
-	 at t: ((val_unsigned and 2) = 0);
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: ((shift_right(val_unsigned,2)) = 0);
-	 at t: not(((shift_left(val_unsigned,2)) = 0));
+	 at t: not(((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32)));
+	 at t: ((val_unsigned and resize(2,32)) = resize(0,32));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: ((shift_right(val_unsigned,resize(2,32))) = resize(0,32));
+	 at t: not(((shift_left(val_unsigned,resize(2,32))) = resize(0,32)));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -288,11 +288,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: ((val_unsigned mod 2)(31 downto 0) = 0);
-	 at t: ((val_unsigned and 2) = 0);
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: not(((shift_right(val_unsigned,2)) = 0));
-	 at t: ((shift_left(val_unsigned,2)) = 0);
+	 at t: ((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: ((val_unsigned and resize(2,32)) = resize(0,32));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_unsigned,resize(2,32))) = resize(0,32)));
+	 at t: ((shift_left(val_unsigned,resize(2,32))) = resize(0,32));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -313,11 +313,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_A_3;
-	 at t: ((val_unsigned mod 2)(31 downto 0) = 0);
-	 at t: ((val_unsigned and 2) = 0);
-	 at t: not(((val_unsigned or 2) = 0));
-	 at t: ((shift_right(val_unsigned,2)) = 0);
-	 at t: ((shift_left(val_unsigned,2)) = 0);
+	 at t: ((val_unsigned mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: ((val_unsigned and resize(2,32)) = resize(0,32));
+	 at t: not(((val_unsigned or resize(2,32)) = resize(0,32)));
+	 at t: ((shift_right(val_unsigned,resize(2,32))) = resize(0,32));
+	 at t: ((shift_left(val_unsigned,resize(2,32))) = resize(0,32));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_B_4;
@@ -398,11 +398,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: not(((val_signed mod 2)(31 downto 0) = 0));
-	 at t: not(((val_signed and 2) = 0));
-	 at t: not(((val_signed or 2) = 0));
-	 at t: not(((shift_right(val_signed,2)) = 0));
-	 at t: not(((shift_left(val_signed,2)) = 0));
+	 at t: not(((val_signed mod resize(2,32))(31 downto 0) = resize(0,32)));
+	 at t: not(((val_signed and resize(2,32)) = resize(0,32)));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_signed,resize(2,32))) = resize(0,32)));
+	 at t: not(((shift_left(val_signed,resize(2,32))) = resize(0,32)));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -423,11 +423,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: ((val_signed mod 2)(31 downto 0) = 0);
-	 at t: not(((val_signed and 2) = 0));
-	 at t: not(((val_signed or 2) = 0));
-	 at t: not(((shift_right(val_signed,2)) = 0));
-	 at t: not(((shift_left(val_signed,2)) = 0));
+	 at t: ((val_signed mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: not(((val_signed and resize(2,32)) = resize(0,32)));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_signed,resize(2,32))) = resize(0,32)));
+	 at t: not(((shift_left(val_signed,resize(2,32))) = resize(0,32)));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -448,11 +448,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: not(((val_signed mod 2)(31 downto 0) = 0));
-	 at t: ((val_signed and 2) = 0);
-	 at t: not(((val_signed or 2) = 0));
-	 at t: not(((shift_right(val_signed,2)) = 0));
-	 at t: not(((shift_left(val_signed,2)) = 0));
+	 at t: not(((val_signed mod resize(2,32))(31 downto 0) = resize(0,32)));
+	 at t: ((val_signed and resize(2,32)) = resize(0,32));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_signed,resize(2,32))) = resize(0,32)));
+	 at t: not(((shift_left(val_signed,resize(2,32))) = resize(0,32)));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -473,11 +473,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: not(((val_signed mod 2)(31 downto 0) = 0));
-	 at t: not(((val_signed and 2) = 0));
-	 at t: not(((val_signed or 2) = 0));
-	 at t: ((shift_right(val_signed,2)) = 0);
-	 at t: not(((shift_left(val_signed,2)) = 0));
+	 at t: not(((val_signed mod resize(2,32))(31 downto 0) = resize(0,32)));
+	 at t: not(((val_signed and resize(2,32)) = resize(0,32)));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: ((shift_right(val_signed,resize(2,32))) = resize(0,32));
+	 at t: not(((shift_left(val_signed,resize(2,32))) = resize(0,32)));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -498,11 +498,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: ((val_signed mod 2)(31 downto 0) = 0);
-	 at t: ((val_signed and 2) = 0);
-	 at t: not(((val_signed or 2) = 0));
-	 at t: not(((shift_right(val_signed,2)) = 0));
-	 at t: not(((shift_left(val_signed,2)) = 0));
+	 at t: ((val_signed mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: ((val_signed and resize(2,32)) = resize(0,32));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_signed,resize(2,32))) = resize(0,32)));
+	 at t: not(((shift_left(val_signed,resize(2,32))) = resize(0,32)));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -523,11 +523,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: ((val_signed mod 2)(31 downto 0) = 0);
-	 at t: not(((val_signed and 2) = 0));
-	 at t: not(((val_signed or 2) = 0));
-	 at t: ((shift_right(val_signed,2)) = 0);
-	 at t: not(((shift_left(val_signed,2)) = 0));
+	 at t: ((val_signed mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: not(((val_signed and resize(2,32)) = resize(0,32)));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: ((shift_right(val_signed,resize(2,32))) = resize(0,32));
+	 at t: not(((shift_left(val_signed,resize(2,32))) = resize(0,32)));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -548,11 +548,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: not(((val_signed mod 2)(31 downto 0) = 0));
-	 at t: ((val_signed and 2) = 0);
-	 at t: not(((val_signed or 2) = 0));
-	 at t: ((shift_right(val_signed,2)) = 0);
-	 at t: not(((shift_left(val_signed,2)) = 0));
+	 at t: not(((val_signed mod resize(2,32))(31 downto 0) = resize(0,32)));
+	 at t: ((val_signed and resize(2,32)) = resize(0,32));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: ((shift_right(val_signed,resize(2,32))) = resize(0,32));
+	 at t: not(((shift_left(val_signed,resize(2,32))) = resize(0,32)));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -573,11 +573,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: ((val_signed mod 2)(31 downto 0) = 0);
-	 at t: ((val_signed and 2) = 0);
-	 at t: not(((val_signed or 2) = 0));
-	 at t: not(((shift_right(val_signed,2)) = 0));
-	 at t: ((shift_left(val_signed,2)) = 0);
+	 at t: ((val_signed mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: ((val_signed and resize(2,32)) = resize(0,32));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: not(((shift_right(val_signed,resize(2,32))) = resize(0,32)));
+	 at t: ((shift_left(val_signed,resize(2,32))) = resize(0,32));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -598,11 +598,11 @@ freeze:
 	val_unsigned_at_t = val_unsigned@t;
 assume: 
 	 at t: SECTION_B_7;
-	 at t: ((val_signed mod 2)(31 downto 0) = 0);
-	 at t: ((val_signed and 2) = 0);
-	 at t: not(((val_signed or 2) = 0));
-	 at t: ((shift_right(val_signed,2)) = 0);
-	 at t: ((shift_left(val_signed,2)) = 0);
+	 at t: ((val_signed mod resize(2,32))(31 downto 0) = resize(0,32));
+	 at t: ((val_signed and resize(2,32)) = resize(0,32));
+	 at t: not(((val_signed or resize(2,32)) = resize(0,32)));
+	 at t: ((shift_right(val_signed,resize(2,32))) = resize(0,32));
+	 at t: ((shift_left(val_signed,resize(2,32))) = resize(0,32));
 	 at t: b_out2_sync;
 prove:
 	 at t_end: SECTION_A_0;

@@ -1,5 +1,0 @@
-add_subdirectory(PrintITL)
-add_subdirectory(PrintAML)
-add_subdirectory(PrintVHDL)
-add_subdirectory(PrintDot)
-add_subdirectory(PrintSVA)

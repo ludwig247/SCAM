@@ -30,10 +30,10 @@ assume:
 prove:
 	 at t: SECTION_A_0;
 	 at t: b_out_sig_mode = READ;
-	 at t: b_out_sig_x = 0;
+	 at t: b_out_sig_x = resize(0,32);
 	 at t: b_out_sig_y = false;
 	 at t: compoundType_mode = READ;
-	 at t: compoundType_x = 0;
+	 at t: compoundType_x = resize(0,32);
 	 at t: compoundType_y = false;
 	 at t: b_out_notify = true;
 end property;
@@ -49,7 +49,7 @@ freeze:
 	compoundType_y_at_t = compoundType_y@t;
 assume: 
 	 at t: SECTION_A_0;
-	 at t: (compoundType_x <= 10);
+	 at t: (compoundType_x <= resize(10,32));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -71,15 +71,15 @@ freeze:
 	compoundType_x_at_t = compoundType_x@t;
 assume: 
 	 at t: SECTION_A_0;
-	 at t: (compoundType_x >= 11);
+	 at t: (compoundType_x >= resize(11,32));
 	 at t: b_out_sync;
 prove:
 	 at t_end: SECTION_A_0;
 	 at t_end: b_out_sig_mode = WRITE;
-	 at t_end: b_out_sig_x = (-1 + compoundType_x_at_t);
+	 at t_end: b_out_sig_x = (-1 + compoundType_x_at_t)(31 downto 0);
 	 at t_end: b_out_sig_y = false;
 	 at t_end: compoundType_mode = WRITE;
-	 at t_end: compoundType_x = (-1 + compoundType_x_at_t);
+	 at t_end: compoundType_x = (-1 + compoundType_x_at_t)(31 downto 0);
 	 at t_end: compoundType_y = false;
 	 during[t+1, t_end-1]: b_out_notify = false;
 	 at t_end: b_out_notify = true;

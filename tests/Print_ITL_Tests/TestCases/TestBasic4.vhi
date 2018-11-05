@@ -25,8 +25,8 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: run_0;
-	 at t: b_out_sig = 4;
-	 at t: var = 4;
+	 at t: b_out_sig = resize(4,32);
+	 at t: var = resize(4,32);
 	 at t: b_out_notify = true;
 end property;
 
@@ -43,8 +43,8 @@ assume:
 	 at t: b_out_sync;
 prove:
 	 at t_end: run_0;
-	 at t_end: b_out_sig = (1 + var_at_t);
-	 at t_end: var = (1 + var_at_t);
+	 at t_end: b_out_sig = (1 + var_at_t)(31 downto 0);
+	 at t_end: var = (1 + var_at_t)(31 downto 0);
 	 during[t+1, t_end-1]: b_out_notify = false;
 	 at t_end: b_out_notify = true;
 end property;
@@ -60,8 +60,8 @@ assume:
 	 at t: not(b_out_sync);
 prove:
 	 at t_end: run_0;
-	 at t_end: b_out_sig = (-1 + var_at_t);
-	 at t_end: var = (-1 + var_at_t);
+	 at t_end: b_out_sig = (-1 + var_at_t)(31 downto 0);
+	 at t_end: var = (-1 + var_at_t)(31 downto 0);
 	 during[t+1, t_end-1]: b_out_notify = false;
 	 at t_end: b_out_notify = true;
 end property;

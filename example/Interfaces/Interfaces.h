@@ -12,17 +12,17 @@
 
 //Shared
 template<typename T>
-using shared_in =  sc_port<shared_in_if<T> >;
+using shared_in = sc_port<shared_in_if<T> >;
 
 template<typename T>
-using shared_out = sc_port<shared_out_if<T> > ;
+using shared_out = sc_port<shared_out_if<T> >;
 
 //Rendez-vouz
 template<typename T>
-using blocking_in =   sc_port<blocking_in_if<T> >;
+using blocking_in = sc_port<blocking_in_if<T> >;
 
 template<typename T>
-using blocking_out =   sc_port<blocking_out_if<T> >;
+using blocking_out = sc_port<blocking_out_if<T> >;
 
 //MasterSlave
 template<typename T>

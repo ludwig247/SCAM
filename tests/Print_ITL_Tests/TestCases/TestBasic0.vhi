@@ -24,7 +24,7 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: SECTION_A_0;
-	 at t: b_out_sig = 5;
+	 at t: b_out_sig = resize(5,32);
 	 at t: b_out_notify = true;
 end property;
 

@@ -26,7 +26,7 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: SECTION_A_0;
-	 at t: val = 0;
+	 at t: val = resize(0,32);
 end property;
 
 
@@ -36,7 +36,7 @@ freeze:
 	s_in_sig_at_t = s_in_sig@t;
 assume: 
 	 at t: SECTION_A_0;
-	 at t: (s_in_sig <= 10);
+	 at t: (s_in_sig <= resize(10,32));
 	 at t: s_in_sync;
 prove:
 	 at t+1: SECTION_A_0;
@@ -50,7 +50,7 @@ freeze:
 	s_in_sig_at_t = s_in_sig@t;
 assume: 
 	 at t: SECTION_A_0;
-	 at t: (s_in_sig >= 11);
+	 at t: (s_in_sig >= resize(11,32));
 	 at t: s_in_sync;
 prove:
 	 at t+1: SECTION_B_2;
@@ -64,7 +64,7 @@ freeze:
 	val_at_t = val@t;
 assume: 
 	 at t: SECTION_A_0;
-	 at t: (val <= 10);
+	 at t: (val <= resize(10,32));
 	 at t: not(s_in_sync);
 prove:
 	 at t+1: SECTION_A_0;
@@ -78,7 +78,7 @@ freeze:
 	val_at_t = val@t;
 assume: 
 	 at t: SECTION_A_0;
-	 at t: (val >= 11);
+	 at t: (val >= resize(11,32));
 	 at t: not(s_in_sync);
 prove:
 	 at t+1: SECTION_B_2;
@@ -95,8 +95,8 @@ assume:
 	 at t: s_in_sync;
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: s_out_sig = (1 + s_in_sig_at_t);
-	 at t+1: val = (1 + s_in_sig_at_t);
+	 at t+1: s_out_sig = (1 + s_in_sig_at_t)(31 downto 0);
+	 at t+1: val = (1 + s_in_sig_at_t)(31 downto 0);
 end property;
 
 property SECTION_B_2_read_5 is
@@ -108,6 +108,6 @@ assume:
 	 at t: not(s_in_sync);
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: s_out_sig = (1 + val_at_t);
-	 at t+1: val = (1 + val_at_t);
+	 at t+1: s_out_sig = (1 + val_at_t)(31 downto 0);
+	 at t+1: val = (1 + val_at_t)(31 downto 0);
 end property;

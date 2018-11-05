@@ -8,19 +8,24 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 ${LLVM_CXX_FLAGS} ")
 set(SOURCE_FILES tests.cpp)
 
 set(GLOBAL_FILES
+        ${CMAKE_SOURCE_DIR}/src/parser/CommandLineParameter.cpp
+        ${CMAKE_SOURCE_DIR}/src/parser/CommandLineParameter.h
         ${CMAKE_SOURCE_DIR}/src/global/ErrorMsg.cpp
         ${CMAKE_SOURCE_DIR}/src/global/DataTypes.cpp
         ${CMAKE_SOURCE_DIR}/src/global/ModelGlobal.h
         ${CMAKE_SOURCE_DIR}/src/global/ExprTranslator.cpp
         ${CMAKE_SOURCE_DIR}/src/global/PrintStmt.cpp
-        ${CMAKE_SOURCE_DIR}/src/global/ExprVisitor.cpp)
+        ${CMAKE_SOURCE_DIR}/src/global/ExprVisitor.cpp
+        ${CMAKE_SOURCE_DIR}/src/global/SimplifyVisitor.cpp
+        ${CMAKE_SOURCE_DIR}/src/global/StmtNodeAlloc.cpp
+        ${CMAKE_SOURCE_DIR}/src/global/NodePeekVisitor.cpp
+        PrintITL_Test.h TestCases/ModuleFunctions.h)
 
 add_executable(PrintITL_Test_Run ${SOURCE_FILES} ${GLOBAL_FILES})
 
-target_link_libraries(PrintITL_Test_Run ITLSynth)
-target_link_libraries(PrintITL_Test_Run PrintAML)
-target_link_libraries(PrintITL_Test_Run ParseSystemC)
-target_link_libraries(PrintITL_Test_Run PropertySynth)
+target_link_libraries(PrintITL_Test_Run PrintITL)
+target_link_libraries(PrintITL_Test_Run modelFactory)
+target_link_libraries(PrintITL_Test_Run propertyFactory)
 target_link_libraries(PrintITL_Test_Run Model)
 target_link_libraries(PrintITL_Test_Run Stmts)
 target_link_libraries(PrintITL_Test_Run ${CMAKE_SOURCE_DIR}/lib/libgtest.a ${CMAKE_SOURCE_DIR}/lib/libgtest_main.a pthread)

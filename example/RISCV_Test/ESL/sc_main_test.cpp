@@ -17,7 +17,7 @@ int sc_main(int argc, char *argv[]) {
         string a = argv[1];
 
         string b = a.substr(0, a.length() - 3);
-        b = b + "s";
+        b = b + "S";
 
         size_t f1 = a.find_last_of("/");
         string c1 = a.substr(f1, a.length());

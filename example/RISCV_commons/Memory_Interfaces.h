@@ -13,7 +13,7 @@ enum ME_AccessType {
     ME_X, ME_RD, ME_WR
 };
 
-struct CPtoME_IF {
+struct CUtoME_IF {
 
     ME_AccessType req;
     ME_MaskType mask;
@@ -22,8 +22,9 @@ struct CPtoME_IF {
 };
 
 struct MEtoCP_IF {
-
     unsigned int loadedData;
+
 };
+
 
 #endif //PROJECT_MEMORY_INTERFACES_H

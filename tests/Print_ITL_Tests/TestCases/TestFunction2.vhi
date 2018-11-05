@@ -17,8 +17,8 @@ constraint no_reset := rst = '0'; end constraint;
 
 -- FUNCTIONS --
 macro foo(record_var_x: int;record_var_y: unsigned) : unsigned := 
-	if((signed(y) < 20)) then unsigned((shift_right(signed(y),signed((y and 31)))))
-	elsif(not((signed(y) < 20))) then 0
+	if ((signed(record_var_y) < resize(20,32))) then unsigned(unsigned((shift_right(signed(record_var_y),signed((y and resize(31,32)))))))
+	else unsigned(resize(0,32))
 end if;
 end macro; 
 
@@ -40,8 +40,8 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: run_0;
-	 at t: record_var_x = 0;
-	 at t: record_var_y = 0;
+	 at t: record_var_x = resize(0,32);
+	 at t: record_var_y = resize(0,32);
 	 at t: b_in_notify = true;
 	 at t: b_out_notify = false;
 end property;

@@ -57,7 +57,7 @@ public:
 
         if (trans.get_command() == tlm::TLM_WRITE_COMMAND) {
 
-#if !defined(LOGTOFILE)
+#ifdef LOGTOFILE
             cout << "S4: @DM: Store at location 0x" << hex << trans.get_address() << ", data length"
                  << trans.get_data_length() << endl;
             //log();
@@ -69,7 +69,7 @@ public:
 
         } else {    // (trans.get_command() == tlm::TLM_READ_COMMAND)
 
-#if !defined(LOGTOFILE)
+#ifdef LOGTOFILE
             cout << "S1/S4 @IM/DM: Read from location 0x" << hex << trans.get_address() << endl;
 #endif
 

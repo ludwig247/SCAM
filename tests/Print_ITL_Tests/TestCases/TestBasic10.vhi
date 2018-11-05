@@ -36,7 +36,7 @@ assume:
 prove:
 	 at t: SECTION_A_0;
 	 at t: compoundType_mode = READ;
-	 at t: compoundType_x = 0;
+	 at t: compoundType_x = resize(0,32);
 	 at t: compoundType_y = false;
 	 at t: b_in_notify = true;
 	 at t: b_out_notify = false;

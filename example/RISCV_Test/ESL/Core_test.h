@@ -21,12 +21,12 @@
  */
 //#include "../../RISCV_Pipelined/ESL/Core.h"
 #include "../../RISCV/ESL/Core.h"
+//#include "../../RISCV_ISA/ESL/Core.h"
 //#include "../../RISCV_MS/ESL/Core.h"
 
 // TLM = 1 -> using TLM bridge and TLM memory
 // TLM = 0 -> SCAM interface only
-#define TLM 1
-#define LOGTOFILE
+#define TLM 0
 
 class Core_test {
 public:
@@ -53,38 +53,31 @@ void Core_test::perform_test() {
     ofstream log_file;
 
     open_hex_file(test_case_path, hex_file);
-    if (!hex_file.is_open()) {
-        std::cout << "Can't open the hex file! Terminating..." << endl;
-        exit(0);
-    }
 
     // extract file name from path
     string test_case = test_case_path.substr(test_case_path.find_last_of("/\\") + 1);
 
-    std::cout << endl << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Running test for hex file: '" << test_case << "' ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
+    cout << endl << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Running test for hex file: '" << test_case << "' ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
 
-#if defined(LOGTOFILE)
+#ifdef LOGTOFILE
     open_log_file(log_file_path, log_file);
-    if (!log_file.is_open()) {
-        std::cout << "Can't open the log file! Terminating..." << endl;
-        exit(0);
-    }
 
     string logfile_name = log_file_path.substr(log_file_path.find_last_of("/\\") + 1);
+    std::cout << logfile_name << std::endl;
 
-    std::cout << "Output redirected to log file: " << logfile_name << endl;
+    cout << "Output redirected to log file: " << logfile_name << endl;
 
-    streambuf *console_buffer = redirect_cout(log_file);
+    streambuf *console_buffer =  cout.rdbuf(log_file.rdbuf());
 
-//    assembly_file.open(assembly_file_path);
-//    if (assembly_file.is_open()) {
-//        std::cout << "Assembly file:" << endl;
-//        std::cout << assembly_file.rdbuf();
-//        std::cout << endl;
-//    } else {
-//        std::cout << "Can't open the assembly file! Terminating..." << endl;
-//        exit(0);
-//    }
+    assembly_file.open(assembly_file_path);
+    if (assembly_file.is_open()) {
+        cout << "Assembly file:" << endl;
+        cout << assembly_file.rdbuf();
+        cout << endl;
+    } else {
+        cout << "Can't open the file " << assembly_file_path << endl;
+        exit(0);
+    }
 #endif
 
 #if TLM == 0
@@ -94,7 +87,7 @@ void Core_test::perform_test() {
     Memory ME("ME", &hex_file, &log_file);
 
     // Channel instantiation
-    Blocking<CPtoME_IF> COtoME_channel("COtoME_channel");
+    Blocking<CUtoME_IF> COtoME_channel("COtoME_channel");
     Blocking<MEtoCP_IF> MEtoCO_channel("MEtoCO_channel");
 
     // Port binding:
@@ -111,7 +104,7 @@ void Core_test::perform_test() {
     TLM_bridge BR("TLM_BR");
 
     // SCAM Channel instantiation (connecting to TLM bridge)
-    Blocking<CPtoME_IF> COtoBR_channel("COtoBR_channel");
+    Blocking<CUtoME_IF> COtoBR_channel("COtoBR_channel");
     Blocking<MEtoCP_IF> BRtoCO_channel("BRtoCO_channel");
 
     // Bind SCAM interface
@@ -125,9 +118,9 @@ void Core_test::perform_test() {
 
 #endif
 
-    // initial log
-#if !defined(LOGTOFILE)
 
+#ifdef LOGTOFILE
+    // initial log
     if (TLM == 0) {
         std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Testing without TLM bridge~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" << endl;
     } else {
@@ -142,8 +135,8 @@ void Core_test::perform_test() {
     // Start simulation.. simulation ends with sc_stop() call
     sc_start();
 
+#ifdef LOGTOFILE
     // final log and testing
-#if !defined(LOGTOFILE)
     std::cout << endl << "Final core state:" << endl;
     ME.log();
     CO.RF.log();
@@ -196,7 +189,6 @@ void Core_test::perform_test() {
             second = next;
         }
         res = next;
-
         assert(reg_file[3] == res && "fibonacci.hex [FAILED]"); // holds N-th fibonacci number
         assert(reg_file[5] == N && "fibonacci.hex [FAILED]");   // holds N
     } else if (test_case == "multiplication.hex") {
@@ -205,6 +197,7 @@ void Core_test::perform_test() {
         int b = 12;
         int ans = a * b;
         int is_neg = ans < 0 ? 1 : 0;
+
         assert(reg_file[3] == is_neg && "multiplication.hex [FAILED]");   // is_neg
         assert(reg_file[5] == ans && "multiplication.hex [FAILED]");      // result
 
@@ -257,7 +250,7 @@ void Core_test::perform_test() {
         // addi  $6,$0,55 		 # 0x37 imm
         // addi  $7,$0,1		 # 0x1 imm
         // addi  $8,$0,3		 # 0x3 imm
-        assert(reg_file[5] == 352 && "store.hex [FAILED]");
+        assert(reg_file[5] == 352 && "store.hex[FAILED]");
         assert(reg_file[6] == 55 && "store.hex [FAILED]");
         assert(reg_file[7] == 1 && "store.hex [FAILED]");
         assert(reg_file[8] == 3 && "store.hex [FAILED]");
@@ -675,20 +668,54 @@ void Core_test::perform_test() {
         assert(reg_file[31] == 0x04030201 && "lw.hex [FAILED]");
         assert(reg_file[30] == 0xFCFDFEFF && "lw.hex [FAILED]");
         assert(reg_file[29] == 0xFEFF0403 && "lw.hex [FAILED]");
+    } else if (test_case == "JB.hex") {
+        assert(reg_file[01] == 0x18 && "jb.hex [FAILED]");
+        assert(reg_file[02] == 0x20 && "jb.hex [FAILED]");
+        assert(reg_file[03] == 0x18 && "jb.hex [FAILED]");
+        assert(reg_file[04] == 0x00 && "jb.hex [FAILED]");
+        assert(reg_file[05] == 0x00 && "jb.hex [FAILED]");
+        assert(reg_file[06] == 0x180 && "jb.hex [FAILED]");
+        assert(reg_file[07] == 0x00 && "jb.hex [FAILED]");
+        assert(reg_file[8] == 0x00 && "jb.hex [FAILED]");
+        assert(reg_file[9] == 0x2C && "jb.hex [FAILED]");
+        assert(reg_file[10] == 0x44 && "jb.hex [FAILED]");
+        assert(reg_file[11] == 0x88 && "jb.hex [FAILED]");
+        assert(ME.mem[0x180] == 0x18 && "jb.hex [FAILED]");
+        assert(reg_file[14] == 0x00 && "jb.hex [FAILED]");
+        assert(ME.mem[0x184] == 0x20 && "jb.hex [FAILED]");
+        assert(reg_file[12] == 0xAC && "jb.hex [FAILED]");
+        assert(ME.mem[0x188] == 0x88 && "jb.hex [FAILED]");
+        assert(reg_file[17] == 0x11 && "jb.hex [FAILED]");
+        assert(reg_file[18] == 0x00 && "jb.hex [FAILED]");
+        assert(reg_file[19] == 0x00 && "jb.hex [FAILED]");
+        assert(ME.mem[0x18C] == 0x44 && "jb.hex [FAILED]");
+        assert(reg_file[13] == 0xD4 && "jb.hex [FAILED]");
+        assert(ME.mem[0x190] == 0x44 && "jb.hex [FAILED]");
+        assert(reg_file[20] == 0x38 && "jb.hex [FAILED]");
+        assert(reg_file[21] == 0x70 && "jb.hex [FAILED]");
+        assert(reg_file[22] == 0xE4 && "jb.hex [FAILED]");
+        assert(reg_file[25] == 0xA8 && "jb.hex [FAILED]");
+        assert(ME.mem[0x194] == 0x44 && "jb.hex [FAILED]");
+        assert(reg_file[26] == 0xFC && "jb.hex [FAILED]");
+        assert(reg_file[27] == 0x150 && "jb.hex [FAILED]");
+        assert(ME.mem[0x198] == 0x44 && "jb.hex [FAILED]");
+        assert(reg_file[28] == 0x154 && "jb.hex [FAILED]");
+        assert(reg_file[29] == 0x118 && "jb.hex [FAILED]");
+        assert(reg_file[30] == 0x230 && "jb.hex [FAILED]");
     } else {
 
-        std::cout << "Tests for test case: '" << test_case << "':" << " [DOES NOT EXIST]" << endl;
+        cout << "Tests for test case: '" << test_case << "':" << " [DOES NOT EXIST]" << endl;
         // close files
         log_file.close();
         hex_file.close();
         return;
     }
 
-    std::cout << "Tests for test case: '" << test_case << "':" << " [PASSED]" << endl;
+    cout << "Tests for test case: '" << test_case << "':" << " [PASSED]" << endl;
 
     // close files
     log_file.close();
     hex_file.close();
-}
+};
 
 #endif //PROJECT_CORE_TEST_H

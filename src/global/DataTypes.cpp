@@ -2,6 +2,7 @@
 // Created by ludwig on 09.11.16.
 //
 
+#include <iostream>
 #include "DataTypes.h"
 
 
@@ -24,6 +25,7 @@ SCAM::DataType *SCAM::DataTypes::getDataType(std::string name) {
 }
 
 void SCAM::DataTypes::addDataType(SCAM::DataType * dataType) {
+
     if(DataTypes::getDataTypeMap().find(dataType->getName()) == DataTypes::getDataTypeMap().end()){
         DataTypes::getInstance().dataTypeMap.insert(std::make_pair(dataType->getName(),dataType));
         //throw std::runtime_error("Type " + dataType->getName() + " already in dataTypeMap");

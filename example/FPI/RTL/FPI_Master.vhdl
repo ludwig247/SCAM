@@ -125,7 +125,7 @@ begin
 						nop_signal <= false;
 
 						opc_o <= buffer2.opc;
-s
+
 						updateQ_o_notify <= true;
 						updateQ_o <= NXT_GRANT_Q;
 						

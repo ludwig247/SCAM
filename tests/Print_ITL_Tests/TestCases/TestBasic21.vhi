@@ -36,10 +36,10 @@ assume:
 prove:
 	 at t: SECTION_A_0;
 	 at t: b_out_sig_mode = READ;
-	 at t: b_out_sig_x = 0;
+	 at t: b_out_sig_x = resize(0,32);
 	 at t: b_out_sig_y = false;
 	 at t: compoundType_mode = READ;
-	 at t: compoundType_x = 0;
+	 at t: compoundType_x = resize(0,32);
 	 at t: compoundType_y = false;
 	 at t: b_out_notify = true;
 	 at t: m_out_notify = false;

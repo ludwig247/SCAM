@@ -33,8 +33,8 @@ lbu   $30,$1,4       # $30 = 0x000000FF
 lbu   $29,$1,3       # $29 = 0x00000004
 lbu   $28,$1,7       # $28 = 0x000000FC
 
-addi $1,$0,0	     # end of ID stage of the last instruction
-addi $1,$0,0	     # end of EX stage of the last instruction
-addi $1,$0,0	     # end of MEM stage of the last instruction
-addi $1,$0,0	     # end of WB stage of the last instruction
+addi $0,$0,0	     # end of ID stage of the last instruction
+addi $0,$0,0	     # end of EX stage of the last instruction
+addi $0,$0,0	     # end of MEM stage of the last instruction
+addi $0,$0,0	     # end of WB stage of the last instruction
 addi $31,$0,0  	     # end of program

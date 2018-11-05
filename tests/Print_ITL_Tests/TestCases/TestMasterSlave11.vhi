@@ -27,8 +27,8 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: SECTION_A_0;
-	 at t: s_out_sig = 0;
-	 at t: val = 0;
+	 at t: s_out_sig = resize(0,32);
+	 at t: val = resize(0,32);
 end property;
 
 
@@ -97,8 +97,8 @@ assume:
 	 at t: s_in_sync;
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: s_out_sig = (2 * s_in_sig_at_t);
-	 at t+1: val = (2 * s_in_sig_at_t);
+	 at t+1: s_out_sig = (2 * s_in_sig_at_t)(31 downto 0);
+	 at t+1: val = (2 * s_in_sig_at_t)(31 downto 0);
 end property;
 
 property SECTION_B_1_read_5 is
@@ -110,6 +110,6 @@ assume:
 	 at t: not(s_in_sync);
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: s_out_sig = (2 * val_at_t);
-	 at t+1: val = (2 * val_at_t);
+	 at t+1: s_out_sig = (2 * val_at_t)(31 downto 0);
+	 at t+1: val = (2 * val_at_t)(31 downto 0);
 end property;

@@ -29,7 +29,7 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: run_0;
-	 at t: var = 4;
+	 at t: var = resize(4,32);
 	 at t: b_in_notify = true;
 	 at t: b_out_notify = false;
 end property;

@@ -34,11 +34,11 @@ assume:
 	 reset_sequence;
 prove:
 	 at t: SECTION_A_0;
-	 at t: s_out_sig = 0;
-	 at t: save_val = 0;
-	 at t: shared_out_sig = 0;
+	 at t: s_out_sig = resize(0,32);
+	 at t: save_val = resize(0,32);
+	 at t: shared_out_sig = resize(0,32);
 	 at t: succ = false;
-	 at t: val = 0;
+	 at t: val = resize(0,32);
 	 at t: m_out_notify = false;
 end property;
 
@@ -58,10 +58,10 @@ assume:
 	 at t: s_in2_sync;
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: m_out_sig = (((save_val_at_t + s_in_sig_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
+	 at t+1: m_out_sig = (((save_val_at_t + s_in_sig_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
 	 at t+1: s_out_sig = s_in2_sig_at_t;
-	 at t+1: save_val = (((save_val_at_t + s_in_sig_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
-	 at t+1: shared_out_sig = (((save_val_at_t + s_in_sig_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
+	 at t+1: save_val = (((save_val_at_t + s_in_sig_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
+	 at t+1: shared_out_sig = (((save_val_at_t + s_in_sig_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
 	 at t+1: succ = succ_at_t;
 	 at t+1: val = s_in2_sig_at_t;
 	 at t+1: m_out_notify = true;
@@ -82,10 +82,10 @@ assume:
 	 at t: s_in2_sync;
 prove:
 	 at t+1: SECTION_B_4;
-	 at t+1: m_out_sig = (((save_val_at_t + s_in_sig_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
+	 at t+1: m_out_sig = (((save_val_at_t + s_in_sig_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
 	 at t+1: s_out_sig = s_in2_sig_at_t;
-	 at t+1: save_val = (((save_val_at_t + s_in_sig_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
-	 at t+1: shared_out_sig = (((save_val_at_t + s_in_sig_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
+	 at t+1: save_val = (((save_val_at_t + s_in_sig_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
+	 at t+1: shared_out_sig = (((save_val_at_t + s_in_sig_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
 	 at t+1: succ = succ_at_t;
 	 at t+1: val = s_in2_sig_at_t;
 	 at t+1: m_out_notify = true;
@@ -105,10 +105,10 @@ assume:
 	 at t: not(s_in2_sync);
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: m_out_sig = ((save_val_at_t + s_in_sig_at_t) + (2 * m_in_sig_at_t));
+	 at t+1: m_out_sig = ((save_val_at_t + s_in_sig_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
 	 at t+1: s_out_sig = m_in_sig_at_t;
-	 at t+1: save_val = ((save_val_at_t + s_in_sig_at_t) + (2 * m_in_sig_at_t));
-	 at t+1: shared_out_sig = ((save_val_at_t + s_in_sig_at_t) + (2 * m_in_sig_at_t));
+	 at t+1: save_val = ((save_val_at_t + s_in_sig_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
+	 at t+1: shared_out_sig = ((save_val_at_t + s_in_sig_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
 	 at t+1: succ = succ_at_t;
 	 at t+1: val = m_in_sig_at_t;
 	 at t+1: m_out_notify = true;
@@ -128,10 +128,10 @@ assume:
 	 at t: not(s_in2_sync);
 prove:
 	 at t+1: SECTION_B_4;
-	 at t+1: m_out_sig = ((save_val_at_t + s_in_sig_at_t) + (2 * m_in_sig_at_t));
+	 at t+1: m_out_sig = ((save_val_at_t + s_in_sig_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
 	 at t+1: s_out_sig = m_in_sig_at_t;
-	 at t+1: save_val = ((save_val_at_t + s_in_sig_at_t) + (2 * m_in_sig_at_t));
-	 at t+1: shared_out_sig = ((save_val_at_t + s_in_sig_at_t) + (2 * m_in_sig_at_t));
+	 at t+1: save_val = ((save_val_at_t + s_in_sig_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
+	 at t+1: shared_out_sig = ((save_val_at_t + s_in_sig_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
 	 at t+1: succ = succ_at_t;
 	 at t+1: val = m_in_sig_at_t;
 	 at t+1: m_out_notify = true;
@@ -152,10 +152,10 @@ assume:
 	 at t: s_in2_sync;
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: m_out_sig = (((save_val_at_t + val_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
+	 at t+1: m_out_sig = (((save_val_at_t + val_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
 	 at t+1: s_out_sig = s_in2_sig_at_t;
-	 at t+1: save_val = (((save_val_at_t + val_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
-	 at t+1: shared_out_sig = (((save_val_at_t + val_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
+	 at t+1: save_val = (((save_val_at_t + val_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
+	 at t+1: shared_out_sig = (((save_val_at_t + val_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
 	 at t+1: succ = succ_at_t;
 	 at t+1: val = s_in2_sig_at_t;
 	 at t+1: m_out_notify = true;
@@ -176,10 +176,10 @@ assume:
 	 at t: s_in2_sync;
 prove:
 	 at t+1: SECTION_B_4;
-	 at t+1: m_out_sig = (((save_val_at_t + val_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
+	 at t+1: m_out_sig = (((save_val_at_t + val_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
 	 at t+1: s_out_sig = s_in2_sig_at_t;
-	 at t+1: save_val = (((save_val_at_t + val_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
-	 at t+1: shared_out_sig = (((save_val_at_t + val_at_t) + m_in_sig_at_t) + s_in2_sig_at_t);
+	 at t+1: save_val = (((save_val_at_t + val_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
+	 at t+1: shared_out_sig = (((save_val_at_t + val_at_t)(31 downto 0) + m_in_sig_at_t)(31 downto 0) + s_in2_sig_at_t)(31 downto 0);
 	 at t+1: succ = succ_at_t;
 	 at t+1: val = s_in2_sig_at_t;
 	 at t+1: m_out_notify = true;
@@ -199,10 +199,10 @@ assume:
 	 at t: not(s_in2_sync);
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: m_out_sig = ((save_val_at_t + val_at_t) + (2 * m_in_sig_at_t));
+	 at t+1: m_out_sig = ((save_val_at_t + val_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
 	 at t+1: s_out_sig = m_in_sig_at_t;
-	 at t+1: save_val = ((save_val_at_t + val_at_t) + (2 * m_in_sig_at_t));
-	 at t+1: shared_out_sig = ((save_val_at_t + val_at_t) + (2 * m_in_sig_at_t));
+	 at t+1: save_val = ((save_val_at_t + val_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
+	 at t+1: shared_out_sig = ((save_val_at_t + val_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
 	 at t+1: succ = succ_at_t;
 	 at t+1: val = m_in_sig_at_t;
 	 at t+1: m_out_notify = true;
@@ -222,10 +222,10 @@ assume:
 	 at t: not(s_in2_sync);
 prove:
 	 at t+1: SECTION_B_4;
-	 at t+1: m_out_sig = ((save_val_at_t + val_at_t) + (2 * m_in_sig_at_t));
+	 at t+1: m_out_sig = ((save_val_at_t + val_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
 	 at t+1: s_out_sig = m_in_sig_at_t;
-	 at t+1: save_val = ((save_val_at_t + val_at_t) + (2 * m_in_sig_at_t));
-	 at t+1: shared_out_sig = ((save_val_at_t + val_at_t) + (2 * m_in_sig_at_t));
+	 at t+1: save_val = ((save_val_at_t + val_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
+	 at t+1: shared_out_sig = ((save_val_at_t + val_at_t)(31 downto 0) + (2 * m_in_sig_at_t)(31 downto 0))(31 downto 0);
 	 at t+1: succ = succ_at_t;
 	 at t+1: val = m_in_sig_at_t;
 	 at t+1: m_out_notify = true;
@@ -244,11 +244,11 @@ assume:
 	 at t: s_in2_sync;
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: s_out_sig = (4 * s_in2_sig_at_t);
+	 at t+1: s_out_sig = (4 * s_in2_sig_at_t)(31 downto 0);
 	 at t+1: save_val = save_val_at_t;
 	 at t+1: shared_out_sig = shared_out_sig_at_t;
 	 at t+1: succ = succ_at_t;
-	 at t+1: val = (2 * s_in2_sig_at_t);
+	 at t+1: val = (2 * s_in2_sig_at_t)(31 downto 0);
 	 at t+1: m_out_notify = false;
 end property;
 
@@ -265,11 +265,11 @@ assume:
 	 at t: not(s_in2_sync);
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: s_out_sig = (4 * s_in_sig_at_t);
+	 at t+1: s_out_sig = (4 * s_in_sig_at_t)(31 downto 0);
 	 at t+1: save_val = save_val_at_t;
 	 at t+1: shared_out_sig = shared_out_sig_at_t;
 	 at t+1: succ = succ_at_t;
-	 at t+1: val = (2 * s_in_sig_at_t);
+	 at t+1: val = (2 * s_in_sig_at_t)(31 downto 0);
 	 at t+1: m_out_notify = false;
 end property;
 
@@ -286,11 +286,11 @@ assume:
 	 at t: s_in2_sync;
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: s_out_sig = (4 * s_in2_sig_at_t);
+	 at t+1: s_out_sig = (4 * s_in2_sig_at_t)(31 downto 0);
 	 at t+1: save_val = save_val_at_t;
 	 at t+1: shared_out_sig = shared_out_sig_at_t;
 	 at t+1: succ = succ_at_t;
-	 at t+1: val = (2 * s_in2_sig_at_t);
+	 at t+1: val = (2 * s_in2_sig_at_t)(31 downto 0);
 	 at t+1: m_out_notify = false;
 end property;
 
@@ -307,10 +307,10 @@ assume:
 	 at t: not(s_in2_sync);
 prove:
 	 at t+1: SECTION_A_0;
-	 at t+1: s_out_sig = (4 * val_at_t);
+	 at t+1: s_out_sig = (4 * val_at_t)(31 downto 0);
 	 at t+1: save_val = save_val_at_t;
 	 at t+1: shared_out_sig = shared_out_sig_at_t;
 	 at t+1: succ = succ_at_t;
-	 at t+1: val = (2 * val_at_t);
+	 at t+1: val = (2 * val_at_t)(31 downto 0);
 	 at t+1: m_out_notify = false;
 end property;

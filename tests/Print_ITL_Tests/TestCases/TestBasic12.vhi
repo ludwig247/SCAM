@@ -39,7 +39,7 @@ for timepoints:
 	 t_end = t+1;
 assume: 
 	 at t: SECTION_A_0;
-	 at t: (b_in_sig_x <= 4);
+	 at t: (b_in_sig_x <= resize(4,32));
 	 at t: b_in_sync;
 prove:
 	 at t_end: SECTION_A_0;
@@ -56,7 +56,7 @@ freeze:
 	b_in_sig_x_at_t = b_in_sig_x@t;
 assume: 
 	 at t: SECTION_A_0;
-	 at t: (b_in_sig_x >= 5);
+	 at t: (b_in_sig_x >= resize(5,32));
 	 at t: b_in_sync;
 prove:
 	 at t_end: SECTION_A_0;
