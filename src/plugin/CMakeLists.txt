@@ -16,13 +16,11 @@
 #Add new plugins by calling:
 add_plugin(PrintITL; "Complete set of properties in ITL")
 add_plugin(PrintAML; "Structure and FSM in AML")
-add_plugin(PrintVHDL; "Print VHDL template")
 add_plugin(PrintSkeleton; "Print VHDL sceleton")
 add_plugin(PrintDotSimple; "statemachine + conditions as .dot" ; PrintDot)
 add_plugin(PrintDotFull; "statemachine + conditions + commitments as .dot" ; PrintDot)
 add_plugin(PrintDotStates; "statemachine as .dot" ; PrintDot)
 add_plugin(PrintSystemC; "Regenerate model in SystemC" ; PrintSystemC)
-add_plugin(PrintModulesCheckers; "Create a project to check equivalency between generate module and original one" ; PrintSystemC)
 add_plugin(PrintSVA; "Complete set of properties in SVA")
 add_plugin(PrintXML; "Dumps the structure of each module as XML")
 
