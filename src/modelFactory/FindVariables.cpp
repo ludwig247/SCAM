@@ -39,7 +39,6 @@ bool SCAM::FindVariables::VisitFieldDecl(clang::FieldDecl *fieldDecl) {
         const clang::EnumType *enumType = fieldDecl->getType()->getAs<clang::EnumType>();
         std::string typeName = enumType->getDecl()->getName().str();
         //Add all enumValues
-
         this->memberTypeMap.insert(std::make_pair(fieldDecl->getName(), typeName));
     }
     else{

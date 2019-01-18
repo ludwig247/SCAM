@@ -28,7 +28,7 @@ namespace SCAM{
     public:
         //TODO: Creater interface for DataSignal + Variable, remove first constructor
         Variable(std::string name,DataType * type, Variable * parent = nullptr); //! Single variable with default initalValue
-        Variable(std::string name,DataType * type, ConstValue * initialValue); //! Single Variable
+        Variable(std::string name,DataType * type, ConstValue * nitialValue); //! Single Variable
 
          //Datatype
         DataType * getDataType();

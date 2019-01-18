@@ -17,6 +17,7 @@ prove:
 	 at t: fromMemoryPort_notify = false;
 	 at t: toMemoryPort_notify = true;
 	 at t: toRegsPort_notify = false;
+right_hook: t;
 end property;
 
 
@@ -48,6 +49,7 @@ prove:
 	 at t_end: fromMemoryPort_notify = true;
 	 during[t+1, t_end]: toMemoryPort_notify = false;
 	 during[t+1, t_end]: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property execute_5_read_1 is
@@ -78,6 +80,8 @@ prove:
 	 during[t+1, t_end-1]: toMemoryPort_notify = false;
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end]: toRegsPort_notify = false;
+right_hook:    t+1;
+
 end property;
 
 property execute_11_write_2 is
@@ -108,6 +112,7 @@ prove:
 	 at t_end: fromMemoryPort_notify = true;
 	 during[t+1, t_end]: toMemoryPort_notify = false;
 	 during[t+1, t_end]: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property execute_12_read_3 is
@@ -141,6 +146,7 @@ prove:
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end-1]: toRegsPort_notify = false;
 	 at t_end: toRegsPort_notify = true;
+right_hook:    t+1;
 end property;
 
 property fetch_16_write_4 is
@@ -171,6 +177,7 @@ prove:
 	 at t_end: fromMemoryPort_notify = true;
 	 during[t+1, t_end]: toMemoryPort_notify = false;
 	 during[t+1, t_end]: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property fetch_17_read_5 is
@@ -209,6 +216,7 @@ prove:
 	 during[t+1, t_end-1]: toMemoryPort_notify = false;
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end]: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property fetch_17_read_6 is
@@ -273,6 +281,7 @@ prove:
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end-1]: toRegsPort_notify = false;
 	 at t_end: toRegsPort_notify = true;
+right_hook:    t+1;
 end property;
 
 property fetch_17_read_7 is
@@ -337,6 +346,7 @@ prove:
 	 during[t+1, t_end-1]: toMemoryPort_notify = false;
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end]: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property fetch_17_read_8 is
@@ -402,6 +412,7 @@ prove:
 	 during[t+1, t_end-1]: toMemoryPort_notify = false;
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end]: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property fetch_17_read_9 is
@@ -438,6 +449,7 @@ prove:
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end-1]: toRegsPort_notify = false;
 	 at t_end: toRegsPort_notify = true;
+right_hook:    t+1;
 end property;
 
 property fetch_17_read_10 is
@@ -475,6 +487,8 @@ prove:
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end-1]: toRegsPort_notify = false;
 	 at t_end: toRegsPort_notify = true;
+right_hook:    t_last-1;
+
 end property;
 
 property fetch_17_read_11 is
@@ -544,6 +558,7 @@ prove:
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end-1]: toRegsPort_notify = false;
 	 at t_end: toRegsPort_notify = true;
+right_hook:    t+1;
 end property;
 
 property fetch_17_read_12 is
@@ -612,6 +627,7 @@ prove:
 	 during[t+1, t_end-1]: toMemoryPort_notify = false;
 	 at t_end: toMemoryPort_notify = true;
 	 during[t+1, t_end]: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property fetch_17_read_13 is
@@ -714,6 +730,7 @@ prove:
 	 at t+1: fromMemoryPort_notify = false;
 	 at t+1: toMemoryPort_notify = true;
 	 at t+1: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property wait_execute_5 is
@@ -741,6 +758,7 @@ prove:
 	 at t+1: fromMemoryPort_notify = true;
 	 at t+1: toMemoryPort_notify = false;
 	 at t+1: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property wait_execute_11 is
@@ -772,6 +790,7 @@ prove:
 	 at t+1: fromMemoryPort_notify = false;
 	 at t+1: toMemoryPort_notify = true;
 	 at t+1: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property wait_execute_12 is
@@ -799,6 +818,7 @@ prove:
 	 at t+1: fromMemoryPort_notify = true;
 	 at t+1: toMemoryPort_notify = false;
 	 at t+1: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property wait_fetch_16 is
@@ -830,6 +850,7 @@ prove:
 	 at t+1: fromMemoryPort_notify = false;
 	 at t+1: toMemoryPort_notify = true;
 	 at t+1: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
 
 property wait_fetch_17 is
@@ -857,4 +878,5 @@ prove:
 	 at t+1: fromMemoryPort_notify = true;
 	 at t+1: toMemoryPort_notify = false;
 	 at t+1: toRegsPort_notify = false;
+right_hook:    t+1;
 end property;
