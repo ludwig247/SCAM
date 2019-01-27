@@ -1,7 +1,7 @@
 `define next_shift_amount 31
 
 `include "ipc.sva"
-`include "Paper_functions.sva"
+
 
 import scam_model_types::*;
 
@@ -24,7 +24,7 @@ function m_out_notify;
 endfunction
 
 // DP SIGNALS //
-function int b_in_sig_data;
+function int b_in_sig_data();
         b_in_sig_data = {$past(Example.data_in,31), $past(Example.data_in,30), $past(Example.data_in,29), $past(Example.data_in,28),
 			$past(Example.data_in,27), $past(Example.data_in,26), $past(Example.data_in,25), $past(Example.data_in,24),
 			$past(Example.data_in,23), $past(Example.data_in,22), $past(Example.data_in,21), $past(Example.data_in,20),
@@ -34,7 +34,7 @@ function int b_in_sig_data;
 			$past(Example.data_in,7), $past(Example.data_in,6), $past(Example.data_in,5), $past(Example.data_in,4),
 			$past(Example.data_in,3), $past(Example.data_in,2), $past(Example.data_in,1), Example.data_in};
 endfunction
-function status_t b_in_sig_status;
+function status_t b_in_sig_status();
         b_in_sig_status = ($past(Example.rst,32) ? frame_detected( 0 ) :
 			($past(Example.rst,33) ? frame_detected( {1'b0, 1'b0, 1'b0, $past(Example.data_in,32)} ) :
 			($past(Example.rst,34) ? frame_detected( {1'b0, 1'b0, $past(Example.data_in,33), $past(Example.data_in,32)} ) :
